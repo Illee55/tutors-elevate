@@ -29,7 +29,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "cv11", "ss01", "ss03";
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink-900);
@@ -41,13 +42,15 @@ body {
 img, svg { max-width: 100%; display: block; }
 
 h1, h2, h3, h4 {
-  font-family: "Georgia", "Charter", "Iowan Old Style", serif;
-  font-weight: 600;
-  line-height: 1.2;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
   color: var(--ink-900);
   margin: 0 0 0.5em;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
 }
+h1 { font-weight: 800; letter-spacing: -0.035em; }
+h2 { letter-spacing: -0.03em; }
 h1 { font-size: clamp(2.2rem, 4.5vw, 3.4rem); }
 h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
 h3 { font-size: 1.25rem; }
@@ -256,7 +259,7 @@ a:hover { text-decoration: underline; }
   box-shadow: var(--shadow-sm);
 }
 .trust-item .num {
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 2rem;
   font-weight: 700;
   color: var(--green-700);
@@ -289,7 +292,7 @@ a:hover { text-decoration: underline; }
   background: var(--green-50);
   color: var(--green-700);
   font-weight: 700;
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   margin-bottom: 12px;
 }
 .principle h3 { margin-bottom: 8px; }
@@ -323,7 +326,7 @@ a:hover { text-decoration: underline; }
   display: grid;
   place-items: center;
   font-weight: 700;
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 1.3rem;
 }
 .tutor-meta { font-size: 0.88rem; color: var(--green-700); margin-top: 2px; font-weight: 600; }
@@ -418,7 +421,7 @@ a:hover { text-decoration: underline; }
   color: var(--ink-900);
   width: 22%;
 }
-.formats-table thead th { font-family: Georgia, serif; font-size: 1.05rem; color: var(--green-700); }
+.formats-table thead th { font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums; font-size: 1.05rem; color: var(--green-700); }
 .formats-table tr:last-child td { border-bottom: none; }
 
 .format-pick {
@@ -452,7 +455,7 @@ a:hover { text-decoration: underline; }
   position: relative;
 }
 .step-num {
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--sky-200);
@@ -499,11 +502,11 @@ a:hover { text-decoration: underline; }
 .pricing-table thead th {
   background: var(--surface);
   color: var(--ink-900);
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 1.02rem;
 }
 .pricing-table tbody tr:last-child td { border-bottom: none; }
-.pricing-table .price { font-weight: 700; color: var(--green-700); font-family: Georgia, serif; }
+.pricing-table .price { font-weight: 700; color: var(--green-700); font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums; }
 
 .pricing-side {
   background: var(--white);
@@ -530,7 +533,7 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius);
 }
 .stat .pct {
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--green-700);
@@ -552,7 +555,7 @@ a:hover { text-decoration: underline; }
 }
 .testimonial::before {
   content: "\201C";
-  font-family: Georgia, serif;
+  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 4rem;
   line-height: 1;
   color: var(--sky-200);
