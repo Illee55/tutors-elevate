@@ -579,6 +579,17 @@
 
             <div class="field-row">
               <div class="field">
+                <label for="email">Parent email <span class="opt">(optional)</span></label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label for="phone">Parent phone <span class="req">*</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="07…" required />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
                 <label for="year">Year group</label>
                 <select id="year" name="year" required>
                   <option value="">Select…</option>
