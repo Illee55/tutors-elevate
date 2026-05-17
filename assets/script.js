@@ -85,6 +85,37 @@
     });
   }
 
+  // Floating contact widget
+  const fab = document.querySelector('.fab');
+  if (fab) {
+    const toggle = fab.querySelector('.fab-toggle');
+    const panel  = fab.querySelector('.fab-panel');
+    const closeBtn = fab.querySelector('.fab-close');
+
+    const open  = () => {
+      panel.hidden = false;
+      requestAnimationFrame(() => fab.classList.add('is-open'));
+      toggle.setAttribute('aria-expanded', 'true');
+    };
+    const close = () => {
+      fab.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      setTimeout(() => { if (!fab.classList.contains('is-open')) panel.hidden = true; }, 250);
+    };
+    const toggleOpen = () => fab.classList.contains('is-open') ? close() : open();
+
+    toggle.addEventListener('click', toggleOpen);
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('click', (e) => {
+      if (fab.classList.contains('is-open') && !fab.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && fab.classList.contains('is-open')) close();
+    });
+    // Close after clicking a panel link
+    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  }
+
   // Footer year
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
