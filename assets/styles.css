@@ -110,8 +110,12 @@ a:hover { text-decoration: underline; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   height: 72px;
+  min-width: 0;
 }
+.nav-inner > * { min-width: 0; }
+.brand { flex-shrink: 0; }
 .brand {
   display: flex;
   align-items: center;
@@ -141,10 +145,11 @@ a:hover { text-decoration: underline; }
 
 .nav-links {
   display: flex;
-  gap: 22px;
+  gap: 18px;
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: nowrap;
 }
 .nav-links a {
   color: var(--ink-700);
@@ -261,7 +266,7 @@ a:hover { text-decoration: underline; }
 .trust {
   margin-top: 56px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 24px 32px;
   display: grid;
@@ -292,7 +297,7 @@ a:hover { text-decoration: underline; }
 .principle {
   padding: 28px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
 }
 .principle .num-mark {
@@ -360,7 +365,7 @@ a:hover { text-decoration: underline; }
 .tutor {
   padding: 28px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
 }
@@ -418,7 +423,7 @@ a:hover { text-decoration: underline; }
 }
 .subject-card {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   padding: 32px;
   display: flex;
@@ -479,7 +484,7 @@ a:hover { text-decoration: underline; }
 /* ---------- Formats comparison ---------- */
 .formats {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -513,7 +518,7 @@ a:hover { text-decoration: underline; }
 .format-pick > div {
   padding: 28px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
 }
 .format-pick h4 { color: var(--green-700); margin-bottom: 12px; }
@@ -529,7 +534,7 @@ a:hover { text-decoration: underline; }
 }
 .step {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   padding: 24px 20px;
   position: relative;
@@ -564,7 +569,7 @@ a:hover { text-decoration: underline; }
 }
 .pricing-table {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -590,7 +595,7 @@ a:hover { text-decoration: underline; }
 
 .pricing-side {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   padding: 28px;
 }
@@ -609,7 +614,7 @@ a:hover { text-decoration: underline; }
   text-align: center;
   padding: 24px 12px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
 }
 .stat .pct {
@@ -632,7 +637,7 @@ a:hover { text-decoration: underline; }
   inset: 0;
   padding: 44px 48px 40px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   display: flex;
@@ -717,7 +722,7 @@ a:hover { text-decoration: underline; }
 }
 .faq-item {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   margin-bottom: 10px;
   overflow: hidden;
@@ -763,7 +768,7 @@ a:hover { text-decoration: underline; }
 }
 .contact-form {
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: var(--shadow-sm);
@@ -883,7 +888,7 @@ a:hover { text-decoration: underline; }
   left: 24px; right: 24px; bottom: 24px;
   max-width: 480px;
   background: var(--white);
-  border: 2px solid var(--line);
+  border: 3px solid var(--line);
   border-radius: var(--radius);
   padding: 20px;
   box-shadow: var(--shadow-lg);
@@ -895,8 +900,16 @@ a:hover { text-decoration: underline; }
 .cookie-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .cookie-actions .btn { padding: 8px 14px; font-size: 0.85rem; }
 
+/* Hide tagline on narrower viewports so nav fits */
+@media (max-width: 1180px) {
+  .brand-name em { display: none; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 0.82rem; }
+  .nav-cta .btn-primary { padding: 8px 14px; font-size: 0.8rem; }
+}
+
 /* ---------- Mobile ---------- */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .section { padding: 64px 0; }
   .hero { padding: 56px 0 40px; }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
