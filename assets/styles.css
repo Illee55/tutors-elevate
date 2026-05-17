@@ -481,6 +481,65 @@ a:hover { text-decoration: underline; }
   color: var(--ink-500);
 }
 
+/* ---------- University prep banner ---------- */
+.uniprep {
+  margin-top: 56px;
+  padding: 36px 44px;
+  background: linear-gradient(135deg, #d8f0ed 0%, #b7e2dd 100%);
+  border: 3px solid #3a8a85;
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 36px;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.uniprep-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #1f5b58;
+  margin-bottom: 10px;
+}
+.uniprep h3 {
+  color: #143f3c;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+}
+.uniprep p {
+  color: #1f5b58;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.uniprep-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.uniprep-tag {
+  background: rgba(255, 255, 255, 0.72);
+  color: #1f5b58;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid rgba(31, 91, 88, 0.25);
+  white-space: nowrap;
+}
+@media (max-width: 800px) {
+  .uniprep {
+    grid-template-columns: 1fr;
+    padding: 28px 24px;
+    gap: 20px;
+  }
+  .uniprep h3 { font-size: 1.3rem; }
+}
+
 /* ---------- Formats comparison ---------- */
 .formats {
   background: var(--white);
