@@ -662,6 +662,40 @@ a:hover { text-decoration: underline; }
 .pricing-side ul { padding-left: 20px; margin: 0 0 18px; color: var(--ink-700); font-size: 0.95rem; }
 .pricing-side ul li { margin-bottom: 6px; }
 
+/* ---------- Unsure callout ---------- */
+.unsure-card {
+  background: linear-gradient(135deg, var(--sky-100) 0%, var(--sky-200) 100%);
+  border: 3px solid #9bc1d3;
+  border-radius: var(--radius-lg);
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.unsure-card h3 {
+  margin: 0 0 8px;
+  color: var(--ink-900);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.unsure-card p {
+  margin: 0;
+  color: var(--ink-700);
+  max-width: 560px;
+}
+.unsure-card .btn { flex-shrink: 0; }
+@media (max-width: 800px) {
+  .unsure-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 24px;
+  }
+  .unsure-card h3 { font-size: 1.2rem; }
+}
+
 /* ---------- Reviews ---------- */
 .review-stats {
   display: grid;
