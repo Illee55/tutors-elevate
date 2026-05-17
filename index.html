@@ -544,7 +544,9 @@
         </div>
 
         <div class="contact-grid">
-          <form id="contact-form" class="contact-form" novalidate>
+          <form id="contact-form" class="contact-form" action="https://formspree.io/f/mpqnavkk" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New Tutors Elevate enquiry" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="field-row">
               <div class="field">
                 <label for="parent">Parent name</label>
@@ -598,6 +600,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send enquiry <span class="arr">→</span></button>
+
+            <div id="form-status" class="form-status" hidden></div>
 
             <div class="form-note">
               Your details are only used to arrange your consultation. We don’t share them, we don’t add you to a marketing list, and we don’t follow up if you don’t book.

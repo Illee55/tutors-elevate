@@ -679,6 +679,23 @@ a:hover { text-decoration: underline; }
   font-size: 0.88rem;
   color: var(--ink-700);
 }
+.form-status {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.form-status.is-success {
+  background: var(--green-50);
+  color: var(--green-900);
+  border: 1px solid var(--green-300);
+}
+.form-status.is-error {
+  background: #fdecec;
+  color: #8a1f1f;
+  border: 1px solid #f3c2c2;
+}
 
 .contact-side dl {
   margin: 0;

@@ -43,35 +43,45 @@
     });
   }
 
-  // Contact form -> mailto
+  // Contact form -> Formspree (AJAX, no page reload)
   const form = document.querySelector('#contact-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
+  const status = document.querySelector('#form-status');
+  if (form && status) {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = new FormData(form);
-      const lines = [];
-      const fields = [
-        ['Parent name', 'parent'],
-        ['Child name', 'child'],
-        ['Year group', 'year'],
-        ['Subject(s) of interest', 'subjects'],
-        ['Exam board', 'board'],
-        ['Preferred contact', 'contact_method'],
-        ['Best time to reach', 'best_time'],
-      ];
-      fields.forEach(([label, key]) => {
-        const v = data.get(key);
-        if (v) lines.push(label + ': ' + v);
-      });
-      const note = data.get('note');
-      if (note) { lines.push(''); lines.push('What you’d like help with:'); lines.push(note); }
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Sending…';
+      status.hidden = true;
+      status.className = 'form-status';
 
-      const subject = 'Free consultation request — ' + (data.get('child') || data.get('parent') || 'New enquiry');
-      const body = lines.join('\n');
-      const mail = 'mailto:hello@tutorselevate.co.uk'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body='   + encodeURIComponent(body);
-      window.location.href = mail;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' },
+        });
+        if (res.ok) {
+          status.textContent = 'Thanks — your enquiry has been sent. We’ll be in touch within one working day.';
+          status.classList.add('is-success');
+          status.hidden = false;
+          form.reset();
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const msg = (data.errors && data.errors.map(x => x.message).join(' ')) || 'Something went wrong. Please email hello@tutorselevate.co.uk instead.';
+          status.textContent = msg;
+          status.classList.add('is-error');
+          status.hidden = false;
+        }
+      } catch (err) {
+        status.textContent = 'Network error. Please email hello@tutorselevate.co.uk instead.';
+        status.classList.add('is-error');
+        status.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalLabel;
+      }
     });
   }
 
