@@ -686,7 +686,20 @@ a:hover { text-decoration: underline; }
   color: var(--ink-700);
   max-width: 560px;
 }
-.unsure-card .btn { flex-shrink: 0; }
+.unsure-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.unsure-actions .btn { width: 100%; justify-content: center; }
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.btn-whatsapp:hover { background: #1da851; color: #fff; }
+.btn-whatsapp svg { flex-shrink: 0; }
+
 @media (max-width: 800px) {
   .unsure-card {
     flex-direction: column;
@@ -694,6 +707,7 @@ a:hover { text-decoration: underline; }
     padding: 28px 24px;
   }
   .unsure-card h3 { font-size: 1.2rem; }
+  .unsure-actions { width: 100%; }
 }
 
 /* ---------- Reviews ---------- */
