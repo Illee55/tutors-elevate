@@ -88,4 +88,48 @@
   // Footer year
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  // Testimonial carousel (auto-rotate every 3s, pause on hover)
+  const carousel = document.querySelector('.testimonial-carousel');
+  const dotsBox  = document.querySelector('.carousel-dots');
+  if (carousel) {
+    const items = Array.from(carousel.querySelectorAll('.testimonial'));
+    let current = 0;
+    let timer = null;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (dotsBox) {
+      items.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Show testimonial ' + (i + 1));
+        dot.addEventListener('click', () => { show(i); restart(); });
+        dotsBox.appendChild(dot);
+      });
+    }
+
+    function show(i) {
+      items[current].classList.remove('is-active');
+      if (dotsBox) dotsBox.children[current].classList.remove('is-active');
+      current = ((i % items.length) + items.length) % items.length;
+      items[current].classList.add('is-active');
+      if (dotsBox) dotsBox.children[current].classList.add('is-active');
+    }
+
+    function next() { show(current + 1); }
+    function start() { if (!reducedMotion && !timer) timer = setInterval(next, 3000); }
+    function stop()  { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    show(0);
+    start();
+
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', start);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+  }
 })();

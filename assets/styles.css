@@ -582,39 +582,87 @@ a:hover { text-decoration: underline; }
 }
 .stat .lbl { font-size: 0.85rem; color: var(--ink-500); margin-top: 8px; }
 
-.testimonials {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.testimonial-carousel {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  min-height: 260px;
 }
 .testimonial {
-  padding: 28px;
+  position: absolute;
+  inset: 0;
+  padding: 44px 48px 40px;
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  position: relative;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  pointer-events: none;
+}
+.testimonial.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .testimonial::before {
   content: "\201C";
-  font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
-  font-size: 4rem;
-  line-height: 1;
+  font-family: "Inter", sans-serif;
+  font-size: 5.5rem;
+  line-height: 0.6;
   color: var(--sky-200);
   position: absolute;
-  top: 8px; left: 18px;
+  top: 28px; left: 36px;
 }
 .testimonial blockquote {
-  margin: 16px 0 14px;
-  font-size: 1rem;
-  color: var(--ink-700);
+  margin: 0 0 20px;
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--ink-900);
+  font-weight: 500;
   position: relative;
   z-index: 1;
 }
 .testimonial cite {
   font-style: normal;
-  font-size: 0.85rem;
-  color: var(--ink-500);
-  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.carousel-dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.carousel-dots button:hover { background: var(--green-300); }
+.carousel-dots button.is-active {
+  background: var(--green-700);
+  transform: scale(1.4);
+}
+
+@media (max-width: 700px) {
+  .testimonial-carousel { min-height: 340px; }
+  .testimonial { padding: 32px 22px 28px; }
+  .testimonial blockquote { font-size: 1.05rem; }
+  .testimonial::before { font-size: 4rem; top: 22px; left: 22px; }
 }
 
 /* ---------- FAQ ---------- */
@@ -818,7 +866,6 @@ a:hover { text-decoration: underline; }
   .philosophy, .tutors, .subjects, .format-pick, .contact-grid, .pricing-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
   .review-stats { grid-template-columns: repeat(2, 1fr); }
-  .testimonials { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .dont ul { columns: 1; }
   .field-row { grid-template-columns: 1fr; }
