@@ -370,7 +370,19 @@ a:hover { text-decoration: underline; }
   font-family: "Inter", sans-serif; font-variant-numeric: tabular-nums;
   font-size: 1.3rem;
 }
-.tutor-meta { font-size: 0.88rem; color: var(--green-700); margin-top: 2px; font-weight: 600; }
+.tutor-role {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-700);
+  background: var(--green-50);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-top: 4px;
+}
+.tutor-meta { font-size: 0.88rem; color: var(--ink-500); margin-top: 6px; font-weight: 500; }
 .tutor-tags {
   display: flex;
   flex-wrap: wrap;
