@@ -63,7 +63,7 @@
           headers: { 'Accept': 'application/json' },
         });
         if (res.ok) {
-          status.textContent = 'Thanks — your enquiry has been sent. We’ll be in touch within one working day.';
+          status.textContent = 'Thanks, your enquiry has been sent. We’ll be in touch within one working day.';
           status.classList.add('is-success');
           status.hidden = false;
           form.reset();
