@@ -163,4 +163,41 @@
       if (document.hidden) stop(); else start();
     });
   }
+
+  // "Not sure where to start?" popup — once per session, after 12s or on exit-intent
+  const unsureModal = document.getElementById('unsure-modal');
+  if (unsureModal) {
+    const UNSURE_KEY = 'te-unsure-shown';
+    let shown = false;
+
+    const open = () => {
+      if (shown || sessionStorage.getItem(UNSURE_KEY)) return;
+      shown = true;
+      sessionStorage.setItem(UNSURE_KEY, '1');
+      unsureModal.hidden = false;
+      document.body.classList.add('unsure-open');
+      requestAnimationFrame(() => unsureModal.classList.add('is-visible'));
+      cleanup();
+    };
+    const close = () => {
+      unsureModal.classList.remove('is-visible');
+      document.body.classList.remove('unsure-open');
+      setTimeout(() => { unsureModal.hidden = true; }, 240);
+    };
+
+    const onExitIntent = (e) => { if (e.clientY <= 0) open(); };
+    const timer = setTimeout(open, 10000);
+    document.addEventListener('mouseout', onExitIntent);
+    function cleanup() {
+      clearTimeout(timer);
+      document.removeEventListener('mouseout', onExitIntent);
+    }
+
+    unsureModal.querySelectorAll('[data-unsure-close]').forEach(el => {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && unsureModal.classList.contains('is-visible')) close();
+    });
+  }
 })();

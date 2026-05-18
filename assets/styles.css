@@ -939,15 +939,31 @@ a:hover { text-decoration: underline; }
   border: 1px solid #f3c2c2;
 }
 
+.contact-side h3 { font-size: 1.6rem; }
 .contact-side dl {
   margin: 0;
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 14px 18px;
+  gap: 22px 26px;
 }
-.contact-side dt { color: var(--ink-500); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-.contact-side dd { margin: 0; color: var(--ink-900); }
-.contact-side dd a { color: var(--green-700); }
+.contact-side dt {
+  color: var(--ink-500);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  align-self: center;
+}
+.contact-side dd { margin: 0; color: var(--ink-900); font-size: 1.15rem; line-height: 1.5; }
+.contact-side dd a { color: var(--green-700); font-weight: 500; }
+.contact-side > div h4 { font-size: 1.15rem; }
+.contact-side > div p { font-size: 1.05rem !important; }
+
+@media (max-width: 600px) {
+  .contact-side h3 { font-size: 1.35rem; }
+  .contact-side dt { font-size: 0.9rem; }
+  .contact-side dd { font-size: 1.05rem; }
+}
 
 /* ---------- Footer ---------- */
 .footer {
@@ -1109,6 +1125,93 @@ a:hover { text-decoration: underline; }
   .fab-toggle { padding: 12px 18px; font-size: 0.88rem; }
   .fab-panel { width: 300px; padding: 18px 20px 20px; }
 }
+
+/* ---------- Contact pill (inline + fixed mirror of FAB) ---------- */
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  background: var(--green-700);
+  color: var(--white);
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(20, 36, 28, 0.2), 0 2px 4px rgba(20, 36, 28, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.contact-pill:hover {
+  background: var(--green-900);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(20, 36, 28, 0.26), 0 3px 8px rgba(20, 36, 28, 0.16);
+}
+.contact-pill-lg {
+  padding: 14px 22px;
+  font-size: 0.98rem;
+}
+.contact-pill-fixed {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 70;
+  padding: 14px 22px;
+  font-size: 0.95rem;
+  box-shadow: 0 8px 20px rgba(20, 36, 28, 0.25), 0 2px 6px rgba(20, 36, 28, 0.15);
+}
+
+@media (max-width: 600px) {
+  .contact-pill-fixed { left: 16px; bottom: 16px; padding: 12px 18px; font-size: 0.88rem; }
+  /* Hide the inline header pill on mobile — fixed pill + FAB already cover it */
+  .nav-cta .contact-pill { display: none; }
+}
+
+/* ---------- "Not sure where to start?" popup ---------- */
+.unsure-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.unsure-modal[hidden] { display: none; }
+.unsure-modal.is-visible { opacity: 1; pointer-events: auto; }
+.unsure-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 36, 28, 0.55);
+  backdrop-filter: blur(2px);
+}
+.unsure-modal-card {
+  position: relative;
+  max-width: 720px;
+  width: 100%;
+  transform: translateY(12px);
+  transition: transform 0.25s ease;
+}
+.unsure-modal.is-visible .unsure-modal-card { transform: translateY(0); }
+.unsure-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ink-900);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.unsure-modal-close:hover { background: var(--white); }
+body.unsure-open { overflow: hidden; }
 
 /* ---------- Cookie banner ---------- */
 .cookie {
