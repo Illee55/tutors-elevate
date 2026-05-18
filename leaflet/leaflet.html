@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tutors Elevate · Leaflet (A4, double-sided)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <style>
+    :root {
+      --green-900: #1f4a2d;
+      --green-700: #2c5f3d;
+      --green-500: #4a8a5c;
+      --green-300: #7ba86f;
+      --green-50:  #eef5ef;
+      --sky-100:   #e8f1f6;
+      --sky-200:   #cde3ec;
+      --ink-900:   #14241c;
+      --ink-700:   #2a3b32;
+      --ink-500:   #5b6b65;
+      --line:      #e2e8e5;
+      --surface:   #f7fafb;
+      --white:     #ffffff;
+    }
+
+    @page { size: A4 portrait; margin: 0; }
+
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink-900);
+      background: #d4d4d4;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto 16px;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      page-break-after: always;
+    }
+    .page:last-child { page-break-after: auto; margin-bottom: 0; }
+
+    @media print {
+      body { background: var(--white); }
+      .page { margin: 0; box-shadow: none; }
+      .print-bar { display: none !important; }
+    }
+
+    /* ----- Print helper bar ----- */
+    .print-bar {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 50;
+      background: var(--green-700);
+      color: var(--white);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* ============================== FRONT (PAGE 1) ============================== */
+    .front {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--green-700) 0%, var(--green-900) 100%);
+      color: var(--white);
+      padding: 22mm 18mm 18mm;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 220mm;
+      height: 220mm;
+      right: -120mm;
+      top: -100mm;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      border-radius: 50%;
+    }
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18mm;
+    }
+    .hero-logo {
+      width: 22mm;
+      height: 22mm;
+      background: var(--white);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .hero-logo svg { width: 75%; height: 75%; }
+    .hero-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .hero-name span {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-300);
+      margin-top: 4px;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin: 0 0 6mm;
+      max-width: 150mm;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green-300);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      max-width: 140mm;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Trust stats strip */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 10mm 14mm;
+      gap: 6mm;
+      background: var(--sky-100);
+      border-bottom: 1px solid var(--line);
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--green-700);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-lbl {
+      font-size: 0.68rem;
+      color: var(--ink-500);
+      margin-top: 4px;
+      line-height: 1.25;
+    }
+
+    /* Subjects strip */
+    .subjects-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 12mm 14mm 8mm;
+      gap: 6mm;
+    }
+    .subj {
+      text-align: left;
+    }
+    .subj-icon {
+      width: 11mm;
+      height: 11mm;
+      background: var(--green-50);
+      color: var(--green-700);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 3.5mm;
+    }
+    .subj-icon svg { width: 60%; height: 60%; }
+    .subj h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 0 0 2mm;
+      letter-spacing: -0.02em;
+    }
+    .subj p {
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Pricing snapshot */
+    .pricing-strip {
+      margin: 0 14mm 8mm;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 6mm 8mm;
+      border: 1px solid var(--line);
+    }
+    .pricing-strip h3 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-700);
+      margin: 0 0 4mm;
+    }
+    .pricing-rows {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm 8mm;
+    }
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.82rem;
+      padding-bottom: 2mm;
+      border-bottom: 1px dashed var(--line);
+    }
+    .pricing-row:last-of-type, .pricing-row:nth-last-of-type(2) {
+      border-bottom: none;
+    }
+    .pricing-row .lbl { color: var(--ink-700); }
+    .pricing-row .price {
+      font-weight: 700;
+      color: var(--green-700);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Contact bar */
+    .contact-bar {
+      margin-top: auto;
+      background: var(--green-900);
+      color: var(--white);
+      padding: 8mm 14mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4mm;
+    }
+    .contact-bar .cta {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .contact-bar .cta span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-300);
+      margin-top: 3px;
+    }
+    .contact-bar .details {
+      text-align: right;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .contact-bar .details .big {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .contact-bar a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* ============================== BACK (PAGE 2) ============================== */
+    .back {
+      padding: 14mm 14mm;
+      display: flex;
+      flex-direction: column;
+      gap: 8mm;
+    }
+
+    .back-head {
+      text-align: center;
+      padding-bottom: 6mm;
+      border-bottom: 1px solid var(--line);
+    }
+    .back-head h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin: 0 0 2mm;
+      color: var(--ink-900);
+    }
+    .back-head p {
+      font-size: 0.88rem;
+      color: var(--ink-500);
+      margin: 0;
+    }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-700);
+      margin: 0 0 4mm;
+    }
+
+    /* How it works */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3mm;
+    }
+    .step {
+      background: var(--surface);
+      border-radius: 6px;
+      padding: 4mm 3mm;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+    .step-num {
+      width: 7mm;
+      height: 7mm;
+      background: var(--green-700);
+      color: var(--white);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin: 0 auto 3mm;
+    }
+    .step h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin: 0 0 2mm;
+      letter-spacing: -0.01em;
+    }
+    .step p {
+      font-size: 0.65rem;
+      color: var(--ink-500);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Principles */
+    .principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+    }
+    .principle {
+      padding: 4mm 5mm;
+      background: var(--green-50);
+      border-left: 3px solid var(--green-500);
+      border-radius: 4px;
+    }
+    .principle h4 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin: 0 0 1.5mm;
+      color: var(--green-900);
+      letter-spacing: -0.01em;
+    }
+    .principle p {
+      font-size: 0.72rem;
+      color: var(--ink-700);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Quotes */
+    .quotes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+    }
+    .quote {
+      padding: 5mm 5mm 4mm;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      position: relative;
+    }
+    .quote::before {
+      content: "\201C";
+      position: absolute;
+      top: -3mm;
+      left: 3mm;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--sky-200);
+      font-weight: 700;
+    }
+    .quote blockquote {
+      margin: 0 0 2mm;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--ink-900);
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+    }
+    .quote cite {
+      font-style: normal;
+      font-size: 0.72rem;
+      color: var(--green-700);
+      font-weight: 600;
+    }
+
+    /* Tutors */
+    .tutors {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+    }
+    .tutor {
+      display: flex;
+      gap: 4mm;
+      align-items: center;
+      padding: 4mm 5mm;
+      background: var(--surface);
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .tutor-avatar {
+      width: 14mm;
+      height: 14mm;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .tutor-info h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin: 0 0 1mm;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 2mm;
+      flex-wrap: wrap;
+    }
+    .role-pill {
+      display: inline-block;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-700);
+      background: var(--green-50);
+      padding: 1mm 2.5mm;
+      border-radius: 999px;
+    }
+    .tutor-info p {
+      font-size: 0.7rem;
+      color: var(--ink-500);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .tutor-info .meta {
+      font-size: 0.65rem;
+      color: var(--green-700);
+      font-weight: 600;
+      margin-bottom: 1mm;
+    }
+
+    /* Footer CTA */
+    .cta-bar {
+      background: var(--green-700);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 6mm 8mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4mm;
+      margin-top: auto;
+    }
+    .cta-bar .left h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0 0 1mm;
+      letter-spacing: -0.02em;
+    }
+    .cta-bar .left p {
+      font-size: 0.78rem;
+      margin: 0;
+      color: rgba(255,255,255,0.85);
+    }
+    .cta-bar .right {
+      text-align: right;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .cta-bar .right strong {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .cta-bar a {
+      color: var(--white);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-bar" onclick="window.print()">Print / Save as PDF</button>
+
+  <!-- ============================== PAGE 1 — FRONT ============================== -->
+  <div class="page front">
+
+    <div class="hero">
+      <div class="hero-brand">
+        <div class="hero-logo">
+          <svg viewBox="0 0 64 64">
+            <g fill="#2C5F3D">
+              <circle cx="32" cy="20" r="10"/>
+              <circle cx="22" cy="26" r="8.5"/>
+              <circle cx="42" cy="26" r="8.5"/>
+              <circle cx="32" cy="30" r="9"/>
+              <rect x="30.2" y="30" width="3.6" height="18" rx="0.6"/>
+              <rect x="22" y="46" width="20" height="3" rx="1.2"/>
+            </g>
+          </svg>
+        </div>
+        <div class="hero-name">
+          Tutors Elevate
+          <span>Helping minds grow</span>
+        </div>
+      </div>
+
+      <h1>Specialised online STEM tuition that helps minds <em>grow</em>.</h1>
+      <p class="hero-sub">One-to-one and small-group lessons in Maths, Sciences, Computer Science and English. Year 5 to A-Level. UK.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">feel supported by their tutor</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">find lessons well-paced</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">97%</div>
+        <div class="stat-lbl">recommend at highest rating</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">96%</div>
+        <div class="stat-lbl">rate planning 4 or 5/5</div>
+      </div>
+    </div>
+
+    <div class="subjects-strip">
+      <div class="subj">
+        <div class="subj-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <line x1="8" y1="6" x2="16" y2="6"/>
+            <line x1="8" y1="10" x2="8" y2="10.01"/>
+            <line x1="12" y1="10" x2="12" y2="10.01"/>
+            <line x1="16" y1="10" x2="16" y2="10.01"/>
+            <line x1="8" y1="14" x2="8" y2="14.01"/>
+            <line x1="12" y1="14" x2="12" y2="14.01"/>
+            <line x1="16" y1="14" x2="16" y2="18"/>
+            <line x1="8" y1="18" x2="8" y2="18.01"/>
+            <line x1="12" y1="18" x2="12" y2="18.01"/>
+          </svg>
+        </div>
+        <h3>Maths &amp; Further</h3>
+        <p>KS2 to A-Level. STEP &amp; MAT for Oxbridge. AQA, Edexcel, OCR, MEI.</p>
+      </div>
+      <div class="subj">
+        <div class="subj-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6.27a4 4 0 0 1-.59 2.08L4.5 18.5A2 2 0 0 0 6.17 22h11.66a2 2 0 0 0 1.67-3.5l-4.91-8.15A4 4 0 0 1 14 8.27V2"/><path d="M8 2h8"/></svg>
+        </div>
+        <h3>Sciences</h3>
+        <p>Physics, Chemistry, Biology at GCSE and A-Level. Med &amp; engineering uni prep.</p>
+      </div>
+      <div class="subj">
+        <div class="subj-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Computer Science</h3>
+        <p>GCSE and A-Level. Python, algorithms, NEA mentoring. AQA and OCR.</p>
+      </div>
+      <div class="subj">
+        <div class="subj-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <h3>English</h3>
+        <p>KS2 to A-Level. Language &amp; Literature. AQA, Edexcel, OCR.</p>
+      </div>
+    </div>
+
+    <div class="pricing-strip">
+      <h3>Pricing snapshot</h3>
+      <div class="pricing-rows">
+        <div class="pricing-row"><span class="lbl">1-to-1 · standard</span><span class="price">£35/hr</span></div>
+        <div class="pricing-row"><span class="lbl">Group · pure (Tue, 1h20)</span><span class="price">£30/session</span></div>
+        <div class="pricing-row"><span class="lbl">1-to-1 · senior teacher</span><span class="price">£45/hr</span></div>
+        <div class="pricing-row"><span class="lbl">Group · applied (Thu, 1h20)</span><span class="price">£30/session</span></div>
+        <div class="pricing-row"><span class="lbl">1-to-1 · head teacher</span><span class="price">£60/hr</span></div>
+        <div class="pricing-row"><span class="lbl">Saturday intensive (2h)</span><span class="price">£40/session</span></div>
+      </div>
+    </div>
+
+    <div class="contact-bar">
+      <div class="cta">
+        Book free<br/>consultation.
+        <span>15 minutes · no obligation</span>
+      </div>
+      <div class="details">
+        <div class="big">07467 218151 · 07356 222384</div>
+        <div>WhatsApp: wa.me/447356222384</div>
+        <div>qazii005.304@gmail.com</div>
+        <div>illee55.github.io/tutors-elevate</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================== PAGE 2 — BACK ============================== -->
+  <div class="page back">
+
+    <div class="back-head">
+      <h2>From “we’re thinking about a tutor” to “they’ve actually improved.”</h2>
+      <p>How we work, what we believe, and what students say about it.</p>
+    </div>
+
+    <div>
+      <h3 class="section-title">How it works</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Free consultation</h4>
+          <p>A 15-minute call. We tell you honestly if we can help.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Free trial lesson</h4>
+          <p>Match to a specialist tutor. No card, no obligation.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Lessons begin</h4>
+          <p>Weekly lessons within 7 days. Planned and tailored.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Progress reports</h4>
+          <p>Written update every 4–6 weeks. Honest, not glossy.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <h4>Ongoing review</h4>
+          <p>If something isn’t working, we change it. We adapt.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">What we believe</h3>
+      <div class="principles">
+        <div class="principle">
+          <h4>Real understanding beats memorising tricks.</h4>
+          <p>We teach the <em>why</em>. Students who understand it remember it under pressure.</p>
+        </div>
+        <div class="principle">
+          <h4>Patience is the most underrated skill in teaching.</h4>
+          <p>Confidence is built one small win at a time. We make sure your child gets it, not just nods along.</p>
+        </div>
+        <div class="principle">
+          <h4>Honesty serves students better than flattery.</h4>
+          <p>We tell parents what’s actually happening. What’s strong, what’s wobbly, what we’re doing about it.</p>
+        </div>
+        <div class="principle">
+          <h4>Steady growth wins.</h4>
+          <p>We don’t cram. Your child more confident in six weeks than today, and again six weeks after that.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">What students &amp; parents say</h3>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote>MashaAllah, Yusuf got 3A* today in Biology, Chemistry and Maths. Thank you for all your support with him.</blockquote>
+          <cite>Zahrah, parent of A-Level student</cite>
+        </figure>
+        <figure class="quote">
+          <blockquote>Alhamdulillah, I got an A in Maths and A*AAA overall, so I got into LSE. Without your support I would have struggled.</blockquote>
+          <cite>A-Level student, now at LSE</cite>
+        </figure>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">Your tutors</h3>
+      <div class="tutors">
+        <div class="tutor">
+          <div class="tutor-avatar">I</div>
+          <div class="tutor-info">
+            <h4>Ilham <span class="role-pill">Senior Head of Subjects</span></h4>
+            <div class="meta">Maths · Further Maths · Physics</div>
+            <p>Five years teaching. Follows the Edexcel spec religiously. STEP &amp; MAT prep for Oxbridge applicants.</p>
+          </div>
+        </div>
+        <div class="tutor">
+          <div class="tutor-avatar">D</div>
+          <div class="tutor-info">
+            <h4>Dayan <span class="role-pill">Senior Head of Subjects</span></h4>
+            <div class="meta">Computer Science · English · Maths</div>
+            <p>KS2 to A-Level. Calm, patient style. Students report well-paced lessons and feel supported through tricky topics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <div class="left">
+        <h3>Ready to elevate their learning?</h3>
+        <p>Book a free 15-minute consultation. No commitment.</p>
+      </div>
+      <div class="right">
+        <strong>07467 218151 · 07356 222384</strong><br/>
+        WhatsApp: wa.me/447356222384<br/>
+        qazii005.304@gmail.com<br/>
+        illee55.github.io/tutors-elevate
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
