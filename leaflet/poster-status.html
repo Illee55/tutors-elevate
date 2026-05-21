@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<title>Tutors Elevate · Status poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+<style>
+  :root{
+    --green-900:#1f4a2d;
+    --green-700:#2c5f3d;
+    --green-500:#4a8a5c;
+    --green-300:#7ba86f;
+    --green-50:#eef5ef;
+    --ink-900:#14241c;
+    --ink-700:#2a3b32;
+    --cream:#f7f3ea;
+    --gold:#d4a84a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'Inter',sans-serif;background:#222;display:flex;align-items:center;justify-content:center;min-height:100vh;color:var(--ink-900);}
+  .poster{
+    width:1080px;
+    height:1920px;
+    background:
+      radial-gradient(ellipse 900px 600px at 50% 0%, #3d7a4f 0%, transparent 60%),
+      radial-gradient(ellipse 700px 700px at 100% 100%, #2c5f3d 0%, transparent 50%),
+      linear-gradient(180deg, var(--green-900) 0%, #163521 100%);
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    padding:90px 80px;
+    display:flex;
+    flex-direction:column;
+  }
+  .grain{
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 1px, transparent 2px),
+                     radial-gradient(circle at 80% 70%, rgba(255,255,255,0.04) 1px, transparent 2px);
+    background-size:120px 120px, 200px 200px;
+    pointer-events:none;
+  }
+  .top{
+    display:flex;align-items:center;gap:24px;margin-bottom:80px;
+  }
+  .logo{width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .logo svg{width:72px;height:72px}
+  .brand-text .brand-name{font-size:46px;font-weight:800;letter-spacing:-0.02em;line-height:1;}
+  .brand-text .tagline{font-size:22px;color:var(--green-300);margin-top:6px;font-style:italic;font-weight:500;}
+  .eyebrow{
+    display:inline-block;font-size:22px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:30px;padding-bottom:8px;border-bottom:2px solid var(--gold);align-self:flex-start;
+  }
+  h1{
+    font-size:104px;font-weight:900;line-height:0.98;letter-spacing:-0.035em;margin-bottom:36px;
+  }
+  h1 .accent{color:var(--green-300);}
+  .lead{
+    font-size:32px;line-height:1.4;color:#dfead9;margin-bottom:60px;max-width:880px;font-weight:400;
+  }
+  .lead strong{color:#fff;font-weight:600;}
+  .subjects{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:18px 28px;margin-bottom:60px;
+  }
+  .subject{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:14px;
+    font-size:24px;font-weight:600;
+  }
+  .subject .dot{width:14px;height:14px;border-radius:50%;background:var(--green-300);flex-shrink:0;}
+  .price-card{
+    background:rgba(247,243,234,0.96);color:var(--ink-900);
+    border-radius:24px;padding:40px 48px;margin-bottom:50px;
+    box-shadow:0 30px 60px rgba(0,0,0,0.35);
+  }
+  .price-card h3{
+    font-size:22px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-700);
+    margin-bottom:24px;
+  }
+  .price-rows{display:flex;flex-direction:column;gap:14px;}
+  .price-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding-bottom:14px;border-bottom:1px dashed rgba(31,74,45,0.18);
+    font-size:26px;
+  }
+  .price-row:last-child{border:0;padding-bottom:0;}
+  .price-row .label{font-weight:600;color:var(--ink-700);}
+  .price-row .value{font-weight:800;color:var(--green-900);font-size:30px;}
+  .stats{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:60px;
+  }
+  .stat{text-align:center;background:rgba(255,255,255,0.07);border-radius:16px;padding:24px 16px;}
+  .stat .num{font-size:50px;font-weight:900;color:var(--gold);line-height:1;}
+  .stat .lbl{font-size:16px;font-weight:500;color:#dfead9;margin-top:8px;line-height:1.25;}
+  .cta-band{
+    background:var(--gold);color:var(--green-900);
+    border-radius:18px;padding:30px 36px;text-align:center;margin-bottom:30px;
+  }
+  .cta-band .big{font-size:38px;font-weight:900;letter-spacing:-0.02em;}
+  .cta-band .small{font-size:20px;font-weight:600;margin-top:6px;}
+  .contact{
+    margin-top:auto;display:flex;flex-direction:column;gap:14px;
+  }
+  .contact .website{
+    font-size:42px;font-weight:800;text-align:center;letter-spacing:-0.01em;color:#fff;
+  }
+  .contact .row{display:flex;justify-content:center;align-items:center;gap:30px;color:#dfead9;font-size:22px;font-weight:500;}
+  .contact .row .ic{display:inline-flex;align-items:center;gap:10px;}
+  .contact .row svg{width:24px;height:24px;}
+
+  /* Print / image export hints */
+  @media print {
+    html,body{background:#fff;}
+    .poster{width:1080px;height:1920px;page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+  <div class="poster" id="poster">
+    <div class="grain"></div>
+
+    <div class="top">
+      <div class="logo">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tutors Elevate logo">
+          <circle cx="32" cy="32" r="29" fill="#1f4a2d"/>
+          <path d="M16 38 L32 18 L48 38" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 46 L42 46" stroke="#7ba86f" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">Tutors Elevate</div>
+        <div class="tagline">Helping minds grow</div>
+      </div>
+    </div>
+
+    <span class="eyebrow">Years 5 to A-Level · UK</span>
+
+    <h1>Specialist online <span class="accent">STEM</span> tuition.</h1>
+    <p class="lead">One-to-one and small-group lessons in <strong>Maths, Sciences, Computer Science</strong> and <strong>English</strong>. Specialist tutors, every lesson planned, honest progress reports.</p>
+
+    <div class="subjects">
+      <div class="subject"><span class="dot"></span>Maths &amp; Further Maths</div>
+      <div class="subject"><span class="dot"></span>Physics · Chemistry · Biology</div>
+      <div class="subject"><span class="dot"></span>Computer Science</div>
+      <div class="subject"><span class="dot"></span>English Lang &amp; Lit</div>
+      <div class="subject"><span class="dot"></span>STEP · MAT · ESAT</div>
+      <div class="subject"><span class="dot"></span>Oxbridge interviews</div>
+    </div>
+
+    <div class="price-card">
+      <h3>Pricing from</h3>
+      <div class="price-rows">
+        <div class="price-row"><span class="label">1-to-1 lessons</span><span class="value">£35 / hour</span></div>
+        <div class="price-row"><span class="label">GCSE group (1h20)</span><span class="value">£15 / person</span></div>
+        <div class="price-row"><span class="label">A-Level group (1h20)</span><span class="value">£25 / person</span></div>
+        <div class="price-row"><span class="label">Exam practice session</span><span class="value">£10 / session</span></div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">100%</div><div class="lbl">Feel supported</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lbl">Lessons well-paced</div></div>
+      <div class="stat"><div class="num">97%</div><div class="lbl">Recommend us</div></div>
+    </div>
+
+    <div class="cta-band">
+      <div class="big">Free trial lesson</div>
+      <div class="small">No card details · No obligation</div>
+    </div>
+
+    <div class="contact">
+      <div class="website">tutorselevate.co.uk</div>
+      <div class="row">
+        <span class="ic">
+          <svg viewBox="0 0 24 24" fill="#7ba86f"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2 0-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4ZM12.1 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.3 0-5.4 4.5-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7 0 5.5-4.5 9.9-9.9 9.9Z"/></svg>
+          WhatsApp 07356 222 384
+        </span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Optional: render to PNG via browser screenshot tooling
+  // Open in Chrome → DevTools → Cmd+Shift+P → "Capture full size screenshot"
+  // Or print to PDF at A0 / actual size for a printable leaflet.
+</script>
+</body>
+</html>
