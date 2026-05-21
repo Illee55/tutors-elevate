@@ -44,8 +44,8 @@
   .top{
     display:flex;align-items:center;gap:24px;margin-bottom:80px;
   }
-  .logo{width:96px;height:96px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .logo svg{width:72px;height:72px}
+  .logo{width:120px;height:120px;flex-shrink:0;}
+  .logo svg{width:100%;height:100%;display:block;}
   .brand-text .brand-name{font-size:46px;font-weight:800;letter-spacing:-0.02em;line-height:1;}
   .brand-text .tagline{font-size:22px;color:var(--green-300);margin-top:6px;font-style:italic;font-weight:500;}
   .eyebrow{
@@ -123,10 +123,17 @@
 
     <div class="top">
       <div class="logo">
-        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tutors Elevate logo">
-          <circle cx="32" cy="32" r="29" fill="#1f4a2d"/>
-          <path d="M16 38 L32 18 L48 38" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M22 46 L42 46" stroke="#7ba86f" stroke-width="3.5" stroke-linecap="round"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tutors Elevate logo">
+          <circle cx="32" cy="32" r="32" fill="#E8F1F6"/>
+          <circle cx="32" cy="32" r="29" fill="#FFFFFF"/>
+          <g fill="#2C5F3D">
+            <circle cx="32" cy="20" r="10"/>
+            <circle cx="22" cy="26" r="8.5"/>
+            <circle cx="42" cy="26" r="8.5"/>
+            <circle cx="32" cy="30" r="9"/>
+            <rect x="30.2" y="30" width="3.6" height="18" rx="0.6"/>
+            <rect x="22" y="46" width="20" height="3" rx="1.2"/>
+          </g>
         </svg>
       </div>
       <div class="brand-text">
