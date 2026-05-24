@@ -7,26 +7,59 @@
   <link rel="icon" type="image/svg+xml" href="../assets/logo.svg"/>
   <link rel="stylesheet" href="checklist.css"/>
   <style>
-    .gb-section { margin: 24px 0; }
-    .gb-section h2 {
-      font-size: 1rem;
+    .ga   { background:#1f4a2d; color:#fff; }
+    .ga-s { background:#2c5f3d; color:#fff; }
+    .gb   { background:#2a7d9c; color:#fff; }
+    .gc   { background:#d97706; color:#fff; }
+    .gd   { background:#ea580c; color:#fff; }
+
+    .gb-table { width:100%; border-collapse:collapse; font-size:0.85rem; margin-bottom:28px; }
+    .gb-table th {
+      padding: 9px 14px;
+      text-align: center;
       font-weight: 700;
-      color: var(--te-ink-mid);
-      margin-bottom: 12px;
-      padding-bottom: 6px;
+      font-size: 0.8rem;
       border-bottom: 2px solid var(--te-line);
     }
-    .gb-section img {
-      width: 100%;
-      max-width: 860px;
-      border: 1px solid var(--te-line);
-      border-radius: 6px;
-      display: block;
+    .gb-table th:first-child { text-align:left; }
+    .gb-table td {
+      padding: 7px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--te-line);
+      color: var(--te-ink-mid);
+      font-size: 0.85rem;
     }
-    .gb-note {
+    .gb-table td:first-child { text-align:left; font-weight:600; color:var(--te-ink); }
+    .gb-table tr:nth-child(even) td { background: var(--te-surface); }
+    .gb-table tr:hover td { background: var(--te-light); }
+
+    .grade-chip {
+      display:inline-block;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .max-col { color: var(--te-ink-off); font-size:0.78rem; }
+
+    .pct-note {
       font-size: 0.75rem;
       color: var(--te-ink-off);
-      margin-top: 8px;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .key-strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      font-size: 0.78rem;
+    }
+    .key-item { display:flex; align-items:center; gap:6px; }
+    .key-dot {
+      width:12px; height:12px; border-radius:50%;
+      flex-shrink:0;
     }
   </style>
 </head>
@@ -40,12 +73,12 @@
   <div class="doc-divider"></div>
   <div class="doc-title">
     <h1>A-Level Maths — Grade Boundaries</h1>
-    <p>Overall boundaries · A* / A / B / C / D · 2018 – 2024</p>
+    <p>Overall boundaries · A* / A / B / C / D · 2018–2024 · Total out of 300</p>
   </div>
 </header>
 
 <div class="print-bar">
-  <p>Use these boundaries to understand how many marks are needed for each grade. Print or save as PDF to keep alongside your revision plan.</p>
+  <p>Use these to understand what overall mark you need across all three papers. Print or save as PDF for your revision folder.</p>
   <button class="btn-print" onclick="window.print()">
     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     Print / Save as PDF
@@ -59,20 +92,55 @@
 </div>
 
 <div class="instructions">
-  <strong>How to read this:</strong> The overall boundary is the combined total across all papers (max 300). Find your target grade column and note the minimum mark — this gives you a realistic target to aim for across your papers.
+  <strong>How to read this:</strong> The number in each grade column is the <strong>minimum combined mark</strong> across all papers needed for that grade. Max total = 300.
+  &nbsp;·&nbsp; The A* grade also requires a minimum score on A2 papers specifically — check your board's rules.
 </div>
 
 <div class="content">
-  <div class="gb-section">
-    <h2>Overall Grade Boundaries — A* / A / B / C / D (out of 300)</h2>
-    <img src="gb-alevel-maths.png" alt="A-Level Maths overall grade boundaries table, 2018 to 2024, grades A* to D"/>
-    <p class="gb-note">Source: exam board published boundaries. The overall A* threshold requires a minimum UMS score on the A2 papers in addition to the overall total — check your specific board's rules.</p>
-  </div>
+
+<div class="paper-banner">Overall Grade Boundaries — A* to D (out of 300)</div>
+
+<div class="key-strip" style="margin-top:14px;">
+  <div class="key-item"><div class="key-dot" style="background:#1f4a2d"></div><span>A* — highest distinction</span></div>
+  <div class="key-item"><div class="key-dot" style="background:#2c5f3d"></div><span>A</span></div>
+  <div class="key-item"><div class="key-dot" style="background:#2a7d9c"></div><span>B</span></div>
+  <div class="key-item"><div class="key-dot" style="background:#d97706"></div><span>C</span></div>
+  <div class="key-item"><div class="key-dot" style="background:#ea580c"></div><span>D</span></div>
+</div>
+
+<table class="gb-table">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Max</th>
+      <th><span class="grade-chip ga">A*</span></th>
+      <th><span class="grade-chip ga-s">A</span></th>
+      <th><span class="grade-chip gb">B</span></th>
+      <th><span class="grade-chip gc">C</span></th>
+      <th><span class="grade-chip gd">D</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2024</td><td class="max-col">300</td><td>251</td><td>205</td><td>167</td><td>130</td><td>93</td></tr>
+    <tr><td>2023</td><td class="max-col">300</td><td>244</td><td>196</td><td>158</td><td>121</td><td>84</td></tr>
+    <tr><td>2022</td><td class="max-col">300</td><td>217</td><td>164</td><td>130</td><td>96</td><td>62</td></tr>
+    <tr><td>2021</td><td class="max-col">300</td><td>207</td><td>157</td><td>128</td><td>99</td><td>70</td></tr>
+    <tr><td>2020</td><td class="max-col">300</td><td>214</td><td>162</td><td>130</td><td>99</td><td>68</td></tr>
+    <tr><td>2019</td><td class="max-col">300</td><td>217</td><td>165</td><td>134</td><td>103</td><td>73</td></tr>
+    <tr><td>2018</td><td class="max-col">300</td><td>229</td><td>184</td><td>155</td><td>126</td><td>98</td></tr>
+  </tbody>
+</table>
+
+<p class="pct-note">
+  Boundaries shown are from published exam board data and may vary by board (AQA / Edexcel / OCR). The table above reflects the general pattern across boards — always verify with your specific board's official document.
+  The A* grade requires the overall total above <em>plus</em> 90% UMS on A2 units — achieving the A* total alone is not sufficient.
+</p>
+
 </div>
 
 <footer class="doc-footer">
   <span>Tutors Elevate · tutorselevate.co.uk</span>
-  <span>Data sourced from published exam board boundaries — for reference only</span>
+  <span>Source: Published exam board grade boundaries · For reference only</span>
 </footer>
 
 </body>

@@ -7,27 +7,52 @@
   <link rel="icon" type="image/svg+xml" href="../assets/logo.svg"/>
   <link rel="stylesheet" href="checklist.css"/>
   <style>
-    .gb-section { margin: 24px 0; }
-    .gb-section h2 {
-      font-size: 1rem;
+    /* Grade colour chips for column headers */
+    .g9  { background:#1f4a2d; color:#fff; }
+    .g8  { background:#2c5f3d; color:#fff; }
+    .g7  { background:#4a8a5c; color:#fff; }
+    .g6  { background:#2a7d9c; color:#fff; }
+    .g5  { background:#3a8fcf; color:#fff; }
+    .g4  { background:#d97706; color:#fff; }
+    .g3  { background:#ea580c; color:#fff; }
+    .g2  { background:#dc2626; color:#fff; }
+    .g1  { background:#991b1b; color:#fff; }
+
+    .gb-table { width:100%; border-collapse:collapse; font-size:0.82rem; margin-bottom:28px; }
+    .gb-table th {
+      padding: 8px 10px;
+      text-align: center;
       font-weight: 700;
-      color: var(--te-ink-mid);
-      margin-bottom: 12px;
-      padding-bottom: 6px;
+      font-size: 0.78rem;
       border-bottom: 2px solid var(--te-line);
     }
-    .gb-section img {
-      width: 100%;
-      max-width: 860px;
-      border: 1px solid var(--te-line);
-      border-radius: 6px;
-      display: block;
+    .gb-table th:first-child { text-align:left; }
+    .gb-table td {
+      padding: 6px 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--te-line);
+      color: var(--te-ink-mid);
     }
-    .gb-note {
+    .gb-table td:first-child { text-align:left; font-weight:500; color:var(--te-ink); }
+    .gb-table tr:nth-child(even) td { background: var(--te-surface); }
+    .gb-table tr:hover td { background: var(--te-light); }
+
+    .grade-chip {
+      display:inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-note {
       font-size: 0.75rem;
       color: var(--te-ink-off);
-      margin-top: 8px;
+      margin-bottom: 6px;
+      margin-top: -10px;
     }
+
+    .max-col { color: var(--te-ink-off); font-size:0.78rem; }
   </style>
 </head>
 <body>
@@ -40,12 +65,12 @@
   <div class="doc-divider"></div>
   <div class="doc-title">
     <h1>GCSE Maths — Grade Boundaries</h1>
-    <p>Edexcel · Foundation &amp; Higher · June 2017 – June 2025</p>
+    <p>Edexcel · Foundation &amp; Higher · June 2017 – June 2025 · Raw marks out of 240</p>
   </div>
 </header>
 
 <div class="print-bar">
-  <p>Use these boundaries to understand how many marks are needed for each grade. Print or save as PDF to keep alongside your revision plan.</p>
+  <p>Use these to set a realistic target score for your exam series. Print or save as PDF to keep alongside your revision plan.</p>
   <button class="btn-print" onclick="window.print()">
     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
     Print / Save as PDF
@@ -55,30 +80,91 @@
 <div class="meta-bar">
   <div><label>Name:</label><span class="meta-line">&nbsp;</span></div>
   <div><label>Target grade:</label><span class="meta-line">&nbsp;</span></div>
-  <div><label>Exam board:</label><span class="meta-line">&nbsp;</span></div>
+  <div><label>Tier:</label><span class="meta-line">&nbsp;</span></div>
 </div>
 
 <div class="instructions">
-  <strong>How to read this:</strong> Find your exam series row and check the minimum mark needed for your target grade. Marks shown are raw paper totals out of the max mark shown.
+  <strong>How to read this:</strong> Find your exam series. The number in each grade column is the <strong>minimum raw mark</strong> needed to achieve that grade. Total marks available = 240.
+  &nbsp;·&nbsp; Boundaries shift each sitting — use the most recent series as your primary target.
 </div>
 
 <div class="content">
-  <div class="gb-section">
-    <h2>Foundation Tier — Grades 5 / 4 / 3 / 2 / 1</h2>
-    <img src="gb-gcse-maths-foundation.png" alt="Edexcel GCSE Maths Foundation grade boundaries table and trend chart, June 2017 to June 2025"/>
-    <p class="gb-note">Source: Edexcel (Pearson). Boundaries vary each sitting — always check your specific exam board and series.</p>
-  </div>
 
-  <div class="gb-section">
-    <h2>Higher Tier — Grades 9 / 8 / 7 / 6 / 5 / 4 / 3</h2>
-    <img src="gb-gcse-maths-higher.png" alt="Edexcel GCSE Maths Higher grade boundaries table and trend chart, June 2017 to June 2025"/>
-    <p class="gb-note">Source: Edexcel (Pearson). Boundaries vary each sitting — always check your specific exam board and series.</p>
-  </div>
+<div class="paper-banner">Foundation Tier — Grades 5 / 4 / 3 / 2 / 1</div>
+<p class="section-note" style="margin-top:10px;">Higher grade achievable on Foundation is Grade 5. Minimum pass (Grade 4) = standard pass.</p>
+
+<table class="gb-table">
+  <thead>
+    <tr>
+      <th>Exam series</th>
+      <th>Max</th>
+      <th><span class="grade-chip g5">5</span></th>
+      <th><span class="grade-chip g4">4</span></th>
+      <th><span class="grade-chip g3">3</span></th>
+      <th><span class="grade-chip g2">2</span></th>
+      <th><span class="grade-chip g1">1</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>June 2025</td><td class="max-col">240</td><td>175</td><td>144</td><td>105</td><td>67</td><td>29</td></tr>
+    <tr><td>November 2024</td><td class="max-col">240</td><td>174</td><td>141</td><td>103</td><td>66</td><td>29</td></tr>
+    <tr><td>June 2024</td><td class="max-col">240</td><td>175</td><td>142</td><td>103</td><td>65</td><td>27</td></tr>
+    <tr><td>November 2023</td><td class="max-col">240</td><td>175</td><td>144</td><td>107</td><td>68</td><td>33</td></tr>
+    <tr><td>June 2023</td><td class="max-col">240</td><td>182</td><td>147</td><td>109</td><td>71</td><td>33</td></tr>
+    <tr><td>November 2022</td><td class="max-col">240</td><td>173</td><td>135</td><td>100</td><td>66</td><td>32</td></tr>
+    <tr><td>June 2022</td><td class="max-col">240</td><td>173</td><td>135</td><td>100</td><td>66</td><td>32</td></tr>
+    <tr><td>November 2021</td><td class="max-col">240</td><td>166</td><td>134</td><td>100</td><td>66</td><td>32</td></tr>
+    <tr><td>November 2020</td><td class="max-col">240</td><td>165</td><td>136</td><td>106</td><td>63</td><td>27</td></tr>
+    <tr><td>November 2019</td><td class="max-col">240</td><td>166</td><td>142</td><td>104</td><td>67</td><td>30</td></tr>
+    <tr><td>June 2019</td><td class="max-col">240</td><td>148</td><td>104</td><td>93</td><td>73</td><td>36</td></tr>
+    <tr><td>November 2018</td><td class="max-col">240</td><td>167</td><td>132</td><td>96</td><td>61</td><td>26</td></tr>
+    <tr><td>June 2018</td><td class="max-col">240</td><td>169</td><td>136</td><td>101</td><td>66</td><td>31</td></tr>
+    <tr><td>November 2017</td><td class="max-col">240</td><td>145</td><td>113</td><td>83</td><td>53</td><td>23</td></tr>
+    <tr><td>June 2017</td><td class="max-col">240</td><td>158</td><td>122</td><td>90</td><td>58</td><td>26</td></tr>
+  </tbody>
+</table>
+
+<div class="paper-banner">Higher Tier — Grades 9 / 8 / 7 / 6 / 5 / 4 / 3</div>
+<p class="section-note" style="margin-top:10px;">Grade 4 on Higher = standard pass. Grade 3 is awarded as a safety net for students near the boundary.</p>
+
+<table class="gb-table">
+  <thead>
+    <tr>
+      <th>Exam series</th>
+      <th>Max</th>
+      <th><span class="grade-chip g9">9</span></th>
+      <th><span class="grade-chip g8">8</span></th>
+      <th><span class="grade-chip g7">7</span></th>
+      <th><span class="grade-chip g6">6</span></th>
+      <th><span class="grade-chip g5">5</span></th>
+      <th><span class="grade-chip g4">4</span></th>
+      <th><span class="grade-chip g3">3</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>June 2025</td><td class="max-col">240</td><td>217</td><td>186</td><td>156</td><td>121</td><td>87</td><td>53</td><td>36</td></tr>
+    <tr><td>November 2024</td><td class="max-col">240</td><td>200</td><td>170</td><td>140</td><td>107</td><td>75</td><td>43</td><td>27</td></tr>
+    <tr><td>June 2024</td><td class="max-col">240</td><td>197</td><td>167</td><td>137</td><td>105</td><td>73</td><td>42</td><td>26</td></tr>
+    <tr><td>November 2023</td><td class="max-col">240</td><td>203</td><td>174</td><td>145</td><td>112</td><td>79</td><td>47</td><td>31</td></tr>
+    <tr><td>June 2023</td><td class="max-col">240</td><td>203</td><td>174</td><td>145</td><td>112</td><td>79</td><td>47</td><td>31</td></tr>
+    <tr><td>November 2022</td><td class="max-col">240</td><td>194</td><td>165</td><td>137</td><td>104</td><td>71</td><td>38</td><td>21</td></tr>
+    <tr><td>June 2022</td><td class="max-col">240</td><td>194</td><td>165</td><td>137</td><td>104</td><td>71</td><td>38</td><td>21</td></tr>
+    <tr><td>November 2021</td><td class="max-col">240</td><td>187</td><td>154</td><td>122</td><td>93</td><td>65</td><td>37</td><td>23</td></tr>
+    <tr><td>November 2020</td><td class="max-col">240</td><td>189</td><td>157</td><td>126</td><td>96</td><td>66</td><td>37</td><td>22</td></tr>
+    <tr><td>November 2019</td><td class="max-col">240</td><td>197</td><td>165</td><td>133</td><td>103</td><td>73</td><td>43</td><td>28</td></tr>
+    <tr><td>June 2019</td><td class="max-col">240</td><td>198</td><td>167</td><td>137</td><td>108</td><td>80</td><td>52</td><td>38</td></tr>
+    <tr><td>November 2018</td><td class="max-col">240</td><td>194</td><td>159</td><td>125</td><td>95</td><td>66</td><td>37</td><td>22</td></tr>
+    <tr><td>June 2018</td><td class="max-col">240</td><td>189</td><td>157</td><td>120</td><td>85</td><td>58</td><td>32</td><td>19</td></tr>
+    <tr><td>November 2017</td><td class="max-col">240</td><td>189</td><td>150</td><td>112</td><td>85</td><td>58</td><td>32</td><td>19</td></tr>
+    <tr><td>June 2017</td><td class="max-col">240</td><td>190</td><td>157</td><td>124</td><td>96</td><td>68</td><td>41</td><td>27</td></tr>
+  </tbody>
+</table>
+
 </div>
 
 <footer class="doc-footer">
   <span>Tutors Elevate · tutorselevate.co.uk</span>
-  <span>Data sourced from Edexcel (Pearson) — for reference only</span>
+  <span>Source: Edexcel (Pearson) published boundaries · For reference only</span>
 </footer>
 
 </body>
