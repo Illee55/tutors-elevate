@@ -676,6 +676,26 @@
     </div>
   </div>
 
+  <!-- "Not sure where to start?" booking nudge modal -->
+  <div class="unsure-modal" id="unsure-modal" hidden role="dialog" aria-modal="true" aria-labelledby="unsure-title">
+    <div class="unsure-modal-backdrop" data-unsure-close></div>
+    <div class="unsure-modal-card">
+      <button class="unsure-modal-close" data-unsure-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="unsure-card">
+        <h3 id="unsure-title">Not sure where to start?</h3>
+        <p>Book a free 15-minute consultation — no commitment, no card details. We'll work out which tutor and format fits your child best.</p>
+        <div class="unsure-actions">
+          <a href="#contact" class="btn btn-primary btn-lg" data-unsure-close>Book free consultation <span class="arr">→</span></a>
+          <a href="https://wa.me/447356222384" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-unsure-close>Message on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/script.js"></script>
 </body>
 </html>

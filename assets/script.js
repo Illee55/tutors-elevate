@@ -69,13 +69,13 @@
           form.reset();
         } else {
           const data = await res.json().catch(() => ({}));
-          const msg = (data.errors && data.errors.map(x => x.message).join(' ')) || 'Something went wrong. Please email qazii005.304@gmail.com instead.';
+          const msg = (data.errors && data.errors.map(x => x.message).join(' ')) || 'Something went wrong. Please email Ilham@tutorselevate.co.uk instead.';
           status.textContent = msg;
           status.classList.add('is-error');
           status.hidden = false;
         }
       } catch (err) {
-        status.textContent = 'Network error. Please email qazii005.304@gmail.com instead.';
+        status.textContent = 'Network error. Please email Ilham@tutorselevate.co.uk instead.';
         status.classList.add('is-error');
         status.hidden = false;
       } finally {
