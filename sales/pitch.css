@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --green-dark: #1f4a2d;
+  --green-mid:  #2c5f3d;
+  --green:      #4a8a5c;
+  --green-light:#eef5ef;
+  --green-line: #b8c4bd;
+  --ink:        #14241c;
+  --ink-mid:    #2a3b32;
+  --ink-off:    #5b6b65;
+  --amber:      #f59e0b;
+  --surface:    #f7fafb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Inter", -apple-system, sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Print bar ── */
+.print-bar {
+  background: var(--green-light);
+  border-bottom: 2px solid var(--green-line);
+  padding: 8px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--ink-off);
+}
+.btn-print {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; background: var(--green-mid); color: #fff;
+  border: none; border-radius: 999px; font-family: inherit;
+  font-size: 0.78rem; font-weight: 600; cursor: pointer;
+}
+.btn-print:hover { background: var(--green-dark); }
+
+/* ── Page ── */
+.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 36px 32px 28px;
+}
+
+/* ── Header ── */
+.pitch-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--green-dark);
+  margin-bottom: 26px;
+}
+.pitch-logo {
+  background: var(--green-dark);
+  border-radius: 10px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+.pitch-logo img { width: 36px; height: 36px; filter: brightness(0) invert(1); display: block; }
+.pitch-header-text h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.pitch-header-text p {
+  font-size: 0.82rem;
+  color: var(--ink-off);
+  margin-top: 4px;
+}
+
+/* ── Hook ── */
+.hook {
+  background: var(--green-dark);
+  color: #fff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-bottom: 22px;
+}
+.hook p {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.hook .sub {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #a8c4b4;
+  margin-top: 6px;
+}
+
+/* ── Two-col ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.card { border-radius: 8px; padding: 16px; }
+.card-problem { background: #fde8e8; border: 1px solid #f3c2c2; }
+.card-solution { background: var(--green-light); border: 1px solid var(--green-line); }
+.card h3 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+.card-problem h3 { color: #7a1f1f; }
+.card-solution h3 { color: var(--green-mid); }
+.card ul { padding-left: 14px; }
+.card li { margin-bottom: 6px; font-size: 0.82rem; color: var(--ink-mid); }
+
+/* ── What section ── */
+.what-section { margin-bottom: 22px; }
+.what-section h2 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.what-card {
+  background: var(--surface);
+  border: 1px solid var(--green-line);
+  border-radius: 8px;
+  padding: 14px 12px;
+  text-align: center;
+}
+.what-card .icon { font-size: 1.4rem; margin-bottom: 6px; }
+.what-card strong { display: block; font-size: 0.8rem; color: var(--ink-mid); margin-bottom: 3px; }
+.what-card span { font-size: 0.72rem; color: var(--ink-off); }
+
+/* ── Stats strip ── */
+.stats-strip {
+  background: var(--green-mid);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px 10px;
+  margin-bottom: 22px;
+}
+.stat { text-align: center; color: #fff; }
+.stat .num { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.stat .label { font-size: 0.68rem; color: #a8c4b4; margin-top: 3px; }
+
+/* ── Quote ── */
+.proof {
+  background: #fef9e7;
+  border-left: 4px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 16px;
+  margin-bottom: 22px;
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+.proof cite { display: block; margin-top: 6px; font-style: normal; font-weight: 600; font-size: 0.72rem; color: var(--ink-off); }
+
+/* ── Pricing ── */
+.pricing-box {
+  border: 2px solid var(--green-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.pricing-box-head {
+  background: var(--green-dark);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.pricing-box-body { padding: 14px 16px; }
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--green-line);
+  font-size: 0.82rem;
+}
+.pricing-row:last-child { border-bottom: none; }
+.pricing-row .price { font-weight: 700; color: var(--green-mid); }
+.pricing-note { font-size: 0.72rem; color: var(--ink-off); margin-top: 8px; }
+
+/* ── CTA ── */
+.cta {
+  background: var(--green-dark);
+  color: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cta p { font-size: 0.88rem; font-weight: 600; }
+.cta .contact { font-size: 0.78rem; color: #a8c4b4; margin-top: 4px; }
+.cta-badge {
+  background: var(--amber);
+  color: #1a1a00;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Footer ── */
+.pitch-footer {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid var(--green-line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--ink-off);
+}
+
+/* ── Print ── */
+@media print {
+  .print-bar { display: none !important; }
+  body { font-size: 11px; }
+  .page { padding: 24px 28px 18px; max-width: 100%; }
+  .hook p { font-size: 0.92rem; }
+  .stats-strip .num { font-size: 1.2rem; }
+}
