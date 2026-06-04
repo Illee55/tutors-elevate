@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutors Elevate · A4 Poster</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green-dark:  #1f4a2d;
+      --green-mid:   #2c5f3d;
+      --green:       #4a8a5c;
+      --green-light: #eef5ef;
+      --green-line:  #b8c4bd;
+      --teal:        #2a8b7a;
+      --ink:         #14241c;
+      --ink-mid:     #2a3b32;
+      --ink-off:     #5b6b65;
+      --surface:     #f0f4f8;
+      --amber:       #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      background: #d0d0d0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      gap: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Print bar (screen only) ── */
+    .print-bar {
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.82rem;
+      font-family: "Inter", sans-serif;
+    }
+    .btn-print {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 16px; background: var(--amber); color: #1a1a00;
+      border: none; border-radius: 999px; font-family: inherit;
+      font-size: 0.8rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-print:hover { background: #d4870a; }
+
+    /* ── A4 Sheet ── */
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--surface);
+      border: 10mm solid var(--surface); /* 1cm white border all around */
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      color: var(--ink);
+      font-size: 8.5pt;
+      line-height: 1.45;
+    }
+
+    /* ── Header ── */
+    .hdr {
+      background: #fff;
+      padding: 10px 14px 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 3px solid var(--green-dark);
+    }
+    .hdr-logo {
+      width: 48px; height: 48px; flex-shrink: 0;
+    }
+    .hdr-logo svg { width: 100%; height: 100%; display: block; }
+    .hdr-brand {
+      font-size: 20pt;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--green-dark);
+      line-height: 1;
+    }
+    .hdr-brand span { color: var(--green); }
+    .hdr-tag {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-off);
+      margin-top: 3px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #fff;
+      padding: 10px 14px 12px;
+    }
+    .hero h1 {
+      font-size: 17pt;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+    .hero h1 .stem {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-color: var(--teal);
+    }
+    .hero p {
+      font-size: 8pt;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    /* ── Stats band ── */
+    .stats-section {
+      background: var(--surface);
+      padding: 8px 14px 10px;
+    }
+    .stats-label {
+      text-align: center;
+      font-size: 6.5pt;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-off);
+      margin-bottom: 7px;
+    }
+    .stats-row {
+      display: flex;
+      gap: 6px;
+    }
+    .stat-box {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--green-line);
+      border-radius: 6px;
+      padding: 7px 4px;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-size: 14pt;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-box .num sup {
+      font-size: 7pt;
+      font-weight: 700;
+      vertical-align: super;
+    }
+    .stat-box .lbl {
+      font-size: 5.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-off);
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+    .stats-note {
+      text-align: center;
+      font-size: 6pt;
+      font-style: italic;
+      color: var(--ink-off);
+      margin-top: 6px;
+    }
+
+    /* ── Mid two-col ── */
+    .mid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 10px 14px;
+      gap: 10px;
+      flex: 1;
+    }
+
+    /* Left: What we teach */
+    .teach h2 {
+      font-size: 9pt;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .teach h2::before {
+      content: '';
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+    .subject-item {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .subj-icon {
+      width: 26px; height: 26px;
+      background: var(--green-light);
+      border: 1px solid var(--green-line);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9pt;
+      font-weight: 900;
+      color: var(--green-dark);
+      flex-shrink: 0;
+      font-family: Georgia, serif;
+    }
+    .subj-text strong {
+      display: block;
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .subj-text p {
+      font-size: 6.8pt;
+      color: var(--ink-off);
+      line-height: 1.4;
+    }
+
+    /* Right: Meet your tutor */
+    .tutor-card {
+      background: var(--green-dark);
+      border-radius: 8px;
+      overflow: hidden;
+      color: #fff;
+    }
+    .tutor-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px 9px;
+    }
+    .tutor-photo {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2.5px solid rgba(255,255,255,0.35);
+      flex-shrink: 0;
+    }
+    .tutor-info .eyebrow {
+      font-size: 5.5pt;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7ba86f;
+      margin-bottom: 3px;
+    }
+    .tutor-info .name {
+      font-size: 13pt;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .tutor-info .role {
+      font-size: 6.5pt;
+      color: #a8c4b4;
+      margin-top: 2px;
+    }
+    .tutor-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin: 0 12px;
+    }
+    .tutor-quotes {
+      padding: 9px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .quote-block p {
+      font-size: 7pt;
+      font-style: italic;
+      color: #ddebd5;
+      line-height: 1.5;
+    }
+    .quote-block .attrib {
+      font-size: 6pt;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-style: normal;
+      margin-top: 3px;
+    }
+
+    /* ── Choose your format ── */
+    .format-label {
+      text-align: center;
+      font-size: 6.5pt;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-off);
+      padding: 4px 14px 0;
+    }
+    .pricing-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 7px 14px 10px;
+    }
+    .price-card {
+      background: #fff;
+      border: 1.5px solid var(--green-line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .price-card-head {
+      padding: 7px 10px 6px;
+      border-bottom: 1px solid var(--green-light);
+    }
+    .price-card-tag {
+      display: inline-block;
+      font-size: 5.5pt;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+    .tag-popular { background: var(--green-light); color: var(--green-dark); border: 1px solid var(--green-line); }
+    .tag-value   { background: #e8f4f1; color: var(--teal); border: 1px solid #b0d4cc; }
+    .price-card-head h3 {
+      font-size: 10pt;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .price-card-body {
+      padding: 8px 10px;
+    }
+    .price-card-body p {
+      font-size: 7pt;
+      color: var(--ink-mid);
+      line-height: 1.45;
+      margin-bottom: 7px;
+    }
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .check-list li {
+      font-size: 7pt;
+      color: var(--ink-mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+    }
+    .check-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 7pt;
+      flex-shrink: 0;
+      margin-top: 0.5px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 8px 14px 10px;
+      align-items: center;
+      background: #fff;
+      border-top: 2px solid var(--green-light);
+      margin-top: auto;
+    }
+    .footer-cta h2 {
+      font-size: 12pt;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+    .footer-cta h2 .elevate { color: var(--teal); }
+    .footer-cta p {
+      font-size: 7pt;
+      color: var(--ink-off);
+      line-height: 1.5;
+    }
+    .contact-box {
+      background: var(--surface);
+      border: 1.5px solid var(--green-line);
+      border-radius: 8px;
+      padding: 9px 13px;
+      min-width: 155px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      font-size: 7.5pt;
+      color: var(--ink-mid);
+    }
+    .contact-row:not(:last-child) {
+      border-bottom: 1px solid var(--green-line);
+    }
+    .contact-row .c-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-row .c-icon svg { width: 10px; height: 10px; }
+    .contact-row .c-label {
+      font-weight: 700;
+      color: var(--ink);
+      min-width: 30px;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .print-bar { display: none !important; }
+      .sheet {
+        box-shadow: none;
+        width: 210mm;
+        min-height: 297mm;
+        border: 10mm solid var(--surface);
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="print-bar">
+  <span>Tutors Elevate · A4 Poster</span>
+  <button class="btn-print" onclick="window.print()">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Save as PDF
+  </button>
+</div>
+
+<div class="sheet">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tutors Elevate logo">
+        <circle cx="32" cy="32" r="32" fill="#E8F1F6"/>
+        <circle cx="32" cy="32" r="29" fill="#FFFFFF"/>
+        <g fill="#2C5F3D">
+          <circle cx="32" cy="20" r="10"/>
+          <circle cx="22" cy="26" r="8.5"/>
+          <circle cx="42" cy="26" r="8.5"/>
+          <circle cx="32" cy="30" r="9"/>
+          <rect x="30.2" y="30" width="3.6" height="18" rx="0.6"/>
+          <rect x="22" y="46" width="20" height="3" rx="1.2"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <div class="hdr-brand"><span>TUTORS</span> ELEVATE</div>
+      <div class="hdr-tag">Helping Minds Grow &nbsp;·&nbsp; Online Tuition</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Specialised Online <span class="stem">STEM</span> Subject Tuition</h1>
+    <p>One-to-one and small-group <strong>premium</strong> lessons across Maths, Sciences and Computer Science — for ambitious students from Year 5 through to A-Level. Patient teaching, well-planned sessions, and the steady support every learner needs to flourish.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-section">
+    <div class="stats-label">— What Our Students Say —</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="num">100<sup>%</sup></div><div class="lbl">Feel<br/>Supported</div></div>
+      <div class="stat-box"><div class="num">100<sup>%</sup></div><div class="lbl">Lessons<br/>Well-Paced</div></div>
+      <div class="stat-box"><div class="num">91<sup>%</sup></div><div class="lbl">Highest<br/>Recommendation</div></div>
+      <div class="stat-box"><div class="num">91<sup>%</sup></div><div class="lbl">Rate Planning<br/>4 or 5 / 5</div></div>
+      <div class="stat-box"><div class="num">82<sup>%</sup></div><div class="lbl">Homework<br/>Just Right</div></div>
+    </div>
+    <div class="stats-note">Based on an independent student feedback survey &nbsp;·&nbsp; 11 respondents</div>
+  </div>
+
+  <!-- Mid: What we teach + Tutor card -->
+  <div class="mid">
+
+    <!-- Left -->
+    <div class="teach">
+      <h2>What we teach</h2>
+
+      <div class="subject-item">
+        <div class="subj-icon">Σ</div>
+        <div class="subj-text">
+          <strong>Mathematics &amp; Further Maths</strong>
+          <p>KS2 foundations through GCSE to full A-Level Maths and Further Maths — including STEP &amp; MAT preparation for Oxbridge applicants.</p>
+        </div>
+      </div>
+
+      <div class="subject-item">
+        <div class="subj-icon" style="font-size:8pt;">⚙</div>
+        <div class="subj-text">
+          <strong>Sciences · Physics · Chemistry · Biology</strong>
+          <p>Combined Science and triple Science at GCSE, plus all three subjects at A-Level. Concepts taught properly, not just memorised.</p>
+        </div>
+      </div>
+
+      <div class="subject-item">
+        <div class="subj-icon" style="font-size:7.5pt; font-family: monospace;">&lt;/&gt;</div>
+        <div class="subj-text">
+          <strong>Computer Science</strong>
+          <p>GCSE &amp; A-Level — algorithms, data structures, programming (Python), and the theory papers. AQA · OCR aligned.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Tutor card -->
+    <div class="tutor-card">
+      <div class="tutor-top">
+        <img class="tutor-photo" src="../assets/ilham.jpg" alt="Ilham — Tutors Elevate"/>
+        <div class="tutor-info">
+          <div class="eyebrow">Meet Your Tutor</div>
+          <div class="name">Ilham</div>
+          <div class="role">Maths &amp; Further Maths · A-Level &amp; GCSE</div>
+        </div>
+      </div>
+      <div class="tutor-divider"></div>
+      <div class="tutor-quotes">
+        <div class="quote-block">
+          <p>"Really good teacher — nice and helpful all the time."</p>
+          <div class="attrib">— Year 11 Student</div>
+        </div>
+        <div class="quote-block">
+          <p>"Makes sure I know what is going on in the lesson, makes sure I am doing well, and a very very good tutor overall!"</p>
+          <div class="attrib">— Year 12 Student</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Choose your format -->
+  <div class="format-label">— Choose Your Format —</div>
+
+  <div class="pricing-cols">
+
+    <div class="price-card">
+      <div class="price-card-head">
+        <div class="price-card-tag tag-popular">Most Popular</div>
+        <h3>One-to-One Premium</h3>
+      </div>
+      <div class="price-card-body">
+        <p>Undivided tutor attention, fully bespoke pacing and content. Ideal for exam prep, tricky topics, or students who need a confidence boost.</p>
+        <ul class="check-list">
+          <li>Lessons built around your child's goals</li>
+          <li>Flexible scheduling, weekly slots</li>
+          <li>Detailed feedback after every session</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="price-card">
+      <div class="price-card-head">
+        <div class="price-card-tag tag-value">Best Value</div>
+        <h3>Group Premium</h3>
+      </div>
+      <div class="price-card-body">
+        <p>Small group sessions at the same level — the same high-quality teaching, with peer learning at a lower price than 1-to-1.</p>
+        <ul class="check-list">
+          <li>Focused, structured group environment</li>
+          <li>Structured weekly curriculum</li>
+          <li>Friendly, motivating group dynamic</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-cta">
+      <h2>Ready to <span class="elevate">elevate</span> their learning?</h2>
+      <p>Book a free 15-minute consultation. We'll discuss goals, timetable<br/>and the right tutor for your child — no commitment.</p>
+    </div>
+    <div class="contact-box">
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+        </div>
+        <span class="c-label">Email</span>
+        <span>Ilham@tutorselevate.co.uk</span>
+      </div>
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <span class="c-label">Phone</span>
+        <span>07467 218 151</span>
+      </div>
+      <div class="contact-row">
+        <div class="c-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <span class="c-label">Web</span>
+        <span>www.tutorselevate.co.uk</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.sheet -->
+
+</body>
+</html>
