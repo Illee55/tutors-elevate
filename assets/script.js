@@ -49,6 +49,24 @@
   if (form && status) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Validate required fields manually (form has novalidate)
+      const required = [
+        { id: 'parent',   label: 'Parent name' },
+        { id: 'child',    label: "Child's name" },
+        { id: 'phone',    label: 'Parent phone' },
+        { id: 'year',     label: 'Year group' },
+        { id: 'subjects', label: 'Subject(s) of interest' },
+      ];
+      const missing = required.filter(f => !form.querySelector('#' + f.id).value.trim());
+      if (missing.length) {
+        status.textContent = 'Please fill in: ' + missing.map(f => f.label).join(', ') + '.';
+        status.className = 'form-status is-error';
+        status.hidden = false;
+        form.querySelector('#' + missing[0].id).focus();
+        return;
+      }
+
       const submitBtn = form.querySelector('button[type="submit"]');
       const originalLabel = submitBtn.innerHTML;
       submitBtn.disabled = true;
