@@ -96,6 +96,18 @@ a:hover { text-decoration: underline; }
 }
 .section-head p { color: var(--ink-500); }
 
+/* ---------- Top bar ---------- */
+.top-bar {
+  background: var(--green-900);
+  color: #d4e8da;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+}
+
 /* ---------- Nav ---------- */
 .nav {
   position: sticky;
