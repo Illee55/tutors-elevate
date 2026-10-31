@@ -1,3 +1,12 @@
+/* Inter, served from this site (SIL Open Font License, see assets/fonts/OFL.txt) so no visitor data goes to a font CDN */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+
 :root {
   --green-900: #1f4a2d;
   --green-700: #2c5f3d;
@@ -618,7 +627,7 @@ a:hover { text-decoration: underline; }
   line-height: 1;
   margin-bottom: 8px;
 }
-.step h4 { margin-bottom: 8px; font-size: 1rem; }
+.step h3 { margin-bottom: 8px; font-size: 1rem; }
 .step p { font-size: 0.88rem; color: var(--ink-500); margin: 0; }
 
 .dont {
@@ -627,7 +636,7 @@ a:hover { text-decoration: underline; }
   background: var(--sky-100);
   border-radius: var(--radius);
 }
-.dont h4 { color: var(--green-700); margin-bottom: 12px; }
+.dont h3 { color: var(--green-700); margin-bottom: 12px; font-size: 1.05rem; }
 .dont ul { columns: 2; column-gap: 32px; padding-left: 20px; margin: 0; color: var(--ink-700); }
 .dont li { margin-bottom: 4px; break-inside: avoid; }
 
@@ -670,7 +679,7 @@ a:hover { text-decoration: underline; }
   border-radius: var(--radius);
   padding: 28px;
 }
-.pricing-side h4 { color: var(--green-700); }
+.pricing-side h3 { color: var(--green-700); font-size: 1.05rem; }
 .pricing-side ul { padding-left: 20px; margin: 0 0 18px; color: var(--ink-700); font-size: 0.95rem; }
 .pricing-side ul li { margin-bottom: 6px; }
 
@@ -707,9 +716,9 @@ a:hover { text-decoration: underline; }
 .unsure-actions .btn { width: 100%; justify-content: center; }
 .btn-whatsapp {
   background: #25D366;
-  color: #fff;
+  color: #0b2e13;
 }
-.btn-whatsapp:hover { background: #1da851; color: #fff; }
+.btn-whatsapp:hover { background: #1da851; color: #0b2e13; }
 .btn-whatsapp svg { flex-shrink: 0; }
 
 @media (max-width: 800px) {
@@ -901,7 +910,8 @@ a:hover { text-decoration: underline; }
   margin-bottom: 6px;
 }
 .field label .req { color: #c0392b; font-weight: 700; margin-left: 2px; }
-.field label .opt { color: var(--ink-300); font-weight: 500; margin-left: 4px; }
+.field label .opt { color: var(--ink-500); font-weight: 500; margin-left: 4px; }
+.field-hint { display: block; font-size: 0.8rem; color: var(--ink-500); margin-top: 4px; }
 .field input, .field select, .field textarea {
   width: 100%;
   padding: 12px 14px;
@@ -914,10 +924,14 @@ a:hover { text-decoration: underline; }
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-  outline: none;
-  border-color: var(--green-500);
-  box-shadow: 0 0 0 3px var(--green-50);
+  outline: 3px solid var(--green-700);
+  outline-offset: 1px;
+  border-color: var(--green-700);
 }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: #b3261e; }
+.field-check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; color: var(--ink-700); margin: 4px 0 18px; }
+.field-check input { width: 20px; height: 20px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--green-700); }
+.field-check input:focus-visible { outline: 3px solid var(--green-700); outline-offset: 2px; }
 .field textarea { min-height: 100px; resize: vertical; }
 .field-row {
   display: grid;
@@ -990,7 +1004,7 @@ a:hover { text-decoration: underline; }
   grid-template-columns: 2fr 1.4fr 1.4fr;
   gap: 40px;
 }
-.footer h4 {
+.footer h2, .footer h4 {
   color: var(--white);
   font-family: -apple-system, "Inter", sans-serif;
   font-weight: 600;
@@ -1001,7 +1015,8 @@ a:hover { text-decoration: underline; }
 }
 .footer .brand { color: var(--white); margin-bottom: 12px; }
 .footer .brand-name em { color: var(--green-300); }
-.footer-tag { font-size: 0.92rem; max-width: 320px; color: #99a8a0; }
+.footer p { color: #b9c8c0; }
+.footer-tag { font-size: 0.92rem; max-width: 320px; color: #b9c8c0; }
 .footer-links { list-style: none; padding: 0; margin: 0; }
 .footer-links li { margin-bottom: 10px; font-size: 0.93rem; }
 .footer-contact { font-size: 0.93rem; line-height: 1.9; }
@@ -1014,8 +1029,11 @@ a:hover { text-decoration: underline; }
   flex-wrap: wrap;
   gap: 12px;
   font-size: 0.85rem;
-  color: #889589;
+  color: #b9c8c0;
 }
+.footer-legal { margin-top: 20px; font-size: 0.8rem; line-height: 1.6; color: #b9c8c0; max-width: 900px; }
+.footer-bottom nav a { white-space: nowrap; }
+.footer-bottom nav a + a::before { content: "·"; color: #b9c8c0; margin: 0 8px; }
 
 /* ---------- Floating contact widget ---------- */
 .fab {
@@ -1179,69 +1197,6 @@ a:hover { text-decoration: underline; }
   .nav-cta .contact-pill { display: none; }
 }
 
-/* ---------- "Not sure where to start?" popup ---------- */
-.unsure-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.22s ease;
-}
-.unsure-modal[hidden] { display: none; }
-.unsure-modal.is-visible { opacity: 1; pointer-events: auto; }
-.unsure-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 36, 28, 0.55);
-  backdrop-filter: blur(2px);
-}
-.unsure-modal-card {
-  position: relative;
-  max-width: 720px;
-  width: 100%;
-  transform: translateY(12px);
-  transition: transform 0.25s ease;
-}
-.unsure-modal.is-visible .unsure-modal-card { transform: translateY(0); }
-.unsure-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--ink-900);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-.unsure-modal-close:hover { background: var(--white); }
-body.unsure-open { overflow: hidden; }
-
-/* ---------- Cookie banner ---------- */
-.cookie {
-  position: fixed;
-  left: 24px; right: 24px; bottom: 24px;
-  max-width: 480px;
-  background: var(--white);
-  border: 3px solid var(--line);
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: var(--shadow-lg);
-  z-index: 60;
-  display: none;
-}
-.cookie.is-visible { display: block; }
-.cookie p { font-size: 0.88rem; margin-bottom: 12px; color: var(--ink-700); }
-.cookie-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.cookie-actions .btn { padding: 8px 14px; font-size: 0.85rem; }
 
 /* Hide tagline on narrower viewports so nav fits */
 @media (max-width: 1180px) {
@@ -1576,3 +1531,26 @@ body.unsure-open { overflow: hidden; }
   z-index: 100;
 }
 .skip-link:focus { left: 0; }
+
+/* ---------- Legal pages ---------- */
+.legal { max-width: 760px; margin: 0 auto; }
+.legal h2 { font-size: 1.45rem; margin-top: 2.2em; }
+.legal h3 { font-size: 1.1rem; margin-top: 1.6em; }
+.legal p, .legal li { font-size: 1rem; color: var(--ink-700); }
+.legal ul, .legal ol { padding-left: 22px; margin: 0 0 1em; }
+.legal li { margin-bottom: 6px; }
+.legal a { text-decoration: underline; }
+.legal table { width: 100%; border-collapse: collapse; margin: 0 0 1.2em; font-size: 0.92rem; }
+.legal th, .legal td { text-align: left; vertical-align: top; padding: 10px 12px; border: 1px solid var(--line); color: var(--ink-700); }
+.legal th { background: var(--surface); color: var(--ink-900); }
+.legal .table-wrap { overflow-x: auto; }
+.legal-meta { font-size: 0.9rem; color: var(--ink-500); }
+.legal-summary { background: var(--green-50); border-left: 4px solid var(--green-700); border-radius: 8px; padding: 18px 22px; margin: 0 0 2em; }
+.legal-summary h2 { margin-top: 0; font-size: 1.15rem; }
+.legal-toc { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 22px; margin-bottom: 2em; }
+.legal-toc h2 { margin: 0 0 8px; font-size: 1rem; }
+.legal-toc ol { margin: 0; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Links inside running text are underlined so they don't rely on colour alone */
+p a:not(.btn), .field-check a, .form-note a, .footer-legal a, .legal li a { text-decoration: underline; text-underline-offset: 2px; }

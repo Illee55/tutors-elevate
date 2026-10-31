@@ -30,19 +30,6 @@
     sections.forEach(s => obs.observe(s));
   }
 
-  // Cookie banner
-  const COOKIE_KEY = 'te-cookie-pref';
-  const banner = document.querySelector('.cookie');
-  if (banner && !localStorage.getItem(COOKIE_KEY)) {
-    requestAnimationFrame(() => banner.classList.add('is-visible'));
-    banner.querySelectorAll('[data-cookie]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        localStorage.setItem(COOKIE_KEY, btn.dataset.cookie);
-        banner.classList.remove('is-visible');
-      });
-    });
-  }
-
   // Contact form -> Formspree (AJAX, no page reload)
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('#form-status');
@@ -52,13 +39,16 @@
 
       // Validate required fields manually (form has novalidate)
       const required = [
-        { id: 'parent',   label: 'Parent name' },
-        { id: 'child',    label: "Child's name" },
-        { id: 'phone',    label: 'Parent phone' },
+        { id: 'parent',   label: 'Your name' },
+        { id: 'phone',    label: 'Phone number' },
         { id: 'year',     label: 'Year group' },
         { id: 'subjects', label: 'Subject(s) of interest' },
+        { id: 'privacy',  label: 'Privacy notice confirmation' },
       ];
-      const missing = required.filter(f => !form.querySelector('#' + f.id).value.trim());
+      const isEmpty = el => el.type === 'checkbox' ? !el.checked : !el.value.trim();
+      required.forEach(f => form.querySelector('#' + f.id).removeAttribute('aria-invalid'));
+      const missing = required.filter(f => isEmpty(form.querySelector('#' + f.id)));
+      missing.forEach(f => form.querySelector('#' + f.id).setAttribute('aria-invalid', 'true'));
       if (missing.length) {
         status.textContent = 'Please fill in: ' + missing.map(f => f.label).join(', ') + '.';
         status.className = 'form-status is-error';
@@ -182,40 +172,4 @@
     });
   }
 
-  // "Not sure where to start?" popup — once per session, after 12s or on exit-intent
-  const unsureModal = document.getElementById('unsure-modal');
-  if (unsureModal) {
-    const UNSURE_KEY = 'te-unsure-shown';
-    let shown = false;
-
-    const open = () => {
-      if (shown || sessionStorage.getItem(UNSURE_KEY)) return;
-      shown = true;
-      sessionStorage.setItem(UNSURE_KEY, '1');
-      unsureModal.hidden = false;
-      document.body.classList.add('unsure-open');
-      requestAnimationFrame(() => unsureModal.classList.add('is-visible'));
-      cleanup();
-    };
-    const close = () => {
-      unsureModal.classList.remove('is-visible');
-      document.body.classList.remove('unsure-open');
-      setTimeout(() => { unsureModal.hidden = true; }, 240);
-    };
-
-    const onExitIntent = (e) => { if (e.clientY <= 0) open(); };
-    const timer = setTimeout(open, 10000);
-    document.addEventListener('mouseout', onExitIntent);
-    function cleanup() {
-      clearTimeout(timer);
-      document.removeEventListener('mouseout', onExitIntent);
-    }
-
-    unsureModal.querySelectorAll('[data-unsure-close]').forEach(el => {
-      el.addEventListener('click', close);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && unsureModal.classList.contains('is-visible')) close();
-    });
-  }
 })();

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Online STEM Tutors UK · Maths, Science, CS, English · Tutors Elevate</title>
-  <meta name="description" content="Specialist online tutoring in Maths, Further Maths, Sciences, Computer Science and English. Years 5 to A-Level. 1-to-1 and small-group lessons. Free trial. AQA, Edexcel, OCR." />
+  <meta name="description" content="Specialist online tutoring in Maths, Further Maths, Sciences, Computer Science and English. Years 5 to A-Level. 1-to-1 and small-group lessons. Free trial lesson. AQA, Edexcel, OCR." />
   <meta name="keywords" content="online tutor UK, maths tutor, GCSE tutor, A-Level tutor, further maths tutor, physics tutor, computer science tutor, STEP MAT prep, Edexcel Maths, AQA Physics, OCR Computer Science, online tuition UK" />
   <meta name="author" content="Tutors Elevate" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -27,17 +27,15 @@
   <meta name="twitter:image" content="https://tutorselevate.co.uk/assets/logo.svg" />
 
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <div class="top-bar" role="banner" aria-label="Level range">
+  <aside class="top-bar" aria-label="Levels we teach">
     <span>KS2 &nbsp;·&nbsp; 11+ Prep &nbsp;·&nbsp; KS3 &nbsp;·&nbsp; GCSE &nbsp;·&nbsp; A-Level &nbsp;·&nbsp; Online UK Tuition</span>
-  </div>
+  </aside>
 
   <header class="nav">
     <div class="container nav-inner">
@@ -50,7 +48,7 @@
       </a>
 
       <nav aria-label="Primary">
-        <ul class="nav-links">
+        <ul class="nav-links" id="primary-nav">
           <li><a href="#about">About</a></li>
           <li><a href="subjects.html">Subjects</a></li>
           <li><a href="tutors.html">Tutors</a></li>
@@ -68,8 +66,8 @@
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
         </a>
-        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <line x1="3" y1="6"  x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
@@ -100,7 +98,7 @@
       </div>
 
       <div class="container">
-        <div class="trust" role="list" aria-label="Independent student survey results">
+        <div class="trust" role="list" aria-label="Student survey results, April to May 2026">
           <div class="trust-item" role="listitem">
             <div class="num">100%</div>
             <div class="lbl">Feel supported by their tutor</div>
@@ -110,14 +108,15 @@
             <div class="lbl">Find lessons well-paced</div>
           </div>
           <div class="trust-item" role="listitem">
-            <div class="num">97%</div>
+            <div class="num">94%</div>
             <div class="lbl">Would recommend at the highest rating</div>
           </div>
           <div class="trust-item" role="listitem">
-            <div class="num">96%</div>
-            <div class="lbl">Rate lesson planning 4 or 5 out of 5</div>
+            <div class="num">94%</div>
+            <div class="lbl">Rate lesson planning 5 out of 5 or 4 out of 5</div>
           </div>
         </div>
+        <p class="trust-source" style="text-align:center;font-size:0.85rem;color:var(--ink-500);margin:14px 0 0;">From our own feedback survey of 16 students taught by Ilham and Dayan, April to May 2026.</p>
       </div>
     </section>
 
@@ -127,39 +126,39 @@
         <div class="section-head">
           <span class="eyebrow">How it works</span>
           <h2>From "we're thinking about a tutor" to "they've actually improved."</h2>
-          <p>Five steps. Here's exactly what happens.</p>
+          <p>Five steps. Here's what happens.</p>
         </div>
 
         <div class="steps">
           <div class="step">
             <div class="step-num">1</div>
-            <h4>Free 15-min consultation</h4>
+            <h3>Free 15-min consultation</h3>
             <p>A quick call. You tell us about your child: year, exam board, struggles, goals. We tell you honestly if we can help.</p>
           </div>
           <div class="step">
             <div class="step-num">2</div>
-            <h4>Free trial lesson</h4>
+            <h3>Free trial lesson</h3>
             <p>We match your child to a specialist tutor and run a free trial. No card details, no obligation.</p>
           </div>
           <div class="step">
             <div class="step-num">3</div>
-            <h4>Lessons begin</h4>
+            <h3>Lessons begin</h3>
             <p>Weekly lessons start, usually within 7 days. Each lesson is planned in advance with tailored homework.</p>
           </div>
           <div class="step">
             <div class="step-num">4</div>
-            <h4>Progress reports</h4>
+            <h3>Progress reports</h3>
             <p>A brief written update every 4–6 weeks: what's clicked, what we're working on, what's next.</p>
           </div>
           <div class="step">
             <div class="step-num">5</div>
-            <h4>Results</h4>
-            <p>Grade improvements, confidence built, exam goals hit. We track it so you can see the progress.</p>
+            <h3>Results</h3>
+            <p>We track progress against your child's goals so you can see what has improved and what still needs work.</p>
           </div>
         </div>
 
         <div class="dont">
-          <h4>What we don't do.</h4>
+          <h3>What we don't do.</h3>
           <ul>
             <li>Cram without building understanding</li>
             <li>Show up without a plan</li>
@@ -239,7 +238,7 @@
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           </div>
           <h3>University &amp; admissions prep</h3>
-          <p>STEP · MAT · PAT · ESAT · UCAT · Medicine interviews · Oxbridge interviews · Personal statements. Taught by tutors who have been through it themselves</p>
+          <p>STEP · MAT · PAT · ESAT · UCAT · Medicine interviews · Oxbridge interviews · Personal statements.</p>
           <span class="more-link">Full details <span>→</span></span>
         </a>
       </div>
@@ -251,7 +250,7 @@
         <div class="section-head">
           <span class="eyebrow">The team</span>
           <h2>Four specialist tutors. One standard of teaching.</h2>
-          <p>Every tutor completes intensive in-house training, has years of experience, and top grades in the subject they teach.</p>
+          <p>Each tutor teaches the subjects they know best, and every lesson follows the same planning standard.</p>
         </div>
 
         <div class="tutors">
@@ -284,7 +283,7 @@
                 <div class="tutor-meta">English Lang &amp; Lit · Computer Science · Maths</div>
               </div>
             </div>
-            <p>English Language and Literature specialist from KS2 to A-Level — Language, Literature, essays, set texts, coursework — across AQA, Edexcel and OCR. Also covers Computer Science and Maths. Her calm, patient style consistently rebuilds confidence.</p>
+            <p>English Language and Literature specialist from KS2 to A-Level — Language, Literature, essays, set texts, coursework — across AQA, Edexcel and OCR. Also covers Computer Science and Maths. Her calm, patient style helps students rebuild confidence.</p>
             <div class="tutor-tags">
               <span class="tag" style="background:#1f4a2d;color:#fff;font-weight:700;">English Lang &amp; Lit</span>
               <span class="tag" style="background:#1f4a2d;color:#fff;font-weight:700;">KS2 to A-Level</span>
@@ -384,7 +383,7 @@
         <div class="section-head">
           <span class="eyebrow">Pricing</span>
           <h2>Honest pricing. No hidden fees.</h2>
-          <p>Weekly billing, no long-term contracts. Block and sibling discounts on request.</p>
+          <p>No long-term contracts. Block and sibling discounts on request. Full details in our <a href="terms.html">terms</a> and <a href="refunds.html">refund and cancellation policy</a>.</p>
         </div>
 
         <div class="pricing-grid">
@@ -442,8 +441,8 @@
             </table>
           </div>
 
-          <aside class="pricing-side">
-            <h4>What's in every lesson</h4>
+          <div class="pricing-side">
+            <h3>What's in every lesson</h3>
             <ul>
               <li>A specialist tutor in your child's subject.</li>
               <li>Properly planned, structured session content.</li>
@@ -451,15 +450,15 @@
               <li>Lesson recordings and shared notes (group sessions).</li>
               <li>Free written progress reports every 4–6 weeks.</li>
             </ul>
-            <h4>Payment terms</h4>
+            <h3>Payment terms</h3>
             <ul>
-              <li>Weekly invoices, payable by bank transfer.</li>
-              <li>24-hour cancellation policy on individual lessons.</li>
+              <li>Invoices payable by bank transfer. Group blocks are paid in advance.</li>
+              <li>Cancel a 1-to-1 lesson at least 24 hours ahead at no charge.</li>
               <li>No long-term contract.</li>
-              <li>Blocks refundable pro-rata for unused lessons.</li>
+              <li>Blocks refundable pro-rata for unused lessons. Lessons already taken are non-refundable.</li>
             </ul>
-            <p style="font-size:0.85rem;color:var(--ink-500);margin:14px 0 0;">Weekday group sessions: <strong>1 hr 20 mins</strong>. Saturday: 2 hrs. No-show, no charge.</p>
-          </aside>
+            <p style="font-size:0.85rem;color:var(--ink-500);margin:14px 0 0;">Weekday group sessions: <strong>1 hr 20 mins</strong>. Saturday: 2 hrs. See our <a href="refunds.html">refund and cancellation policy</a>.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -470,27 +469,27 @@
         <div class="section-head">
           <span class="eyebrow">Reviews</span>
           <h2>What students and parents say.</h2>
-          <p>We survey students independently every term. 97% would recommend at the highest rating.</p>
+          <p>Messages we have received from parents and students, shared without children's names.</p>
         </div>
 
         <div class="reviews-grid">
           <div class="review-card">
-            <blockquote>MashaAllah, Yusuf got 3A* today in Biology, Chemistry and Maths. Thank you for all your support with him.</blockquote>
-            <cite>— Zahrah, parent of A-Level student</cite>
+            <blockquote>MashaAllah, my son got 3A* today in Biology, Chemistry and Maths. Thank you for all your support with him.</blockquote>
+            <cite>— Parent of an A-Level student</cite>
           </div>
           <div class="review-card">
             <blockquote>Alhamdulillah, I got an A in Maths and A*AAA overall, so I got into LSE. Thank you for all your support. Without it I would have struggled.</blockquote>
             <cite>— A-Level student, now at LSE</cite>
           </div>
           <div class="review-card">
-            <blockquote>Isa got Grade 8 in Maths, Physics and Biology — just one mark away from the top. Without your support he couldn't have achieved this.</blockquote>
-            <cite>— Parent of Isa, GCSE</cite>
+            <blockquote>He got Grade 8 in Maths, Physics and Biology — just one mark away from the top. Without your support he couldn't have achieved this.</blockquote>
+            <cite>— Parent of a GCSE student</cite>
           </div>
         </div>
 
         <div style="text-align:center; margin-top:48px; color:var(--ink-500); font-size:0.95rem;">
-          <p><strong>What students value most.</strong> Three things keep coming up:<br />
-          "My tutor is patient with me." &nbsp;·&nbsp; "I actually understand it now." &nbsp;·&nbsp; "Lessons feel calm."</p>
+          <p><strong>From our April to May 2026 student survey:</strong><br />
+          "Really good teacher, nice and helpful all the time." &nbsp;·&nbsp; "She makes sure that I know what is going on in the lesson." &nbsp;·&nbsp; "Helpful and understanding."</p>
         </div>
       </div>
     </section>
@@ -501,36 +500,36 @@
         <div class="section-head">
           <span class="eyebrow">Contact</span>
           <h2>Book your free 15-minute consultation.</h2>
-          <p>No commitment, no sales tactics. We'll discuss your child's goals, their exam board, and which tutor would fit best.</p>
+          <p>No commitment. We'll discuss your child's goals, their exam board, and which tutor would fit best. Please fill this in as a parent or guardian, or yourself if you are 18 or over.</p>
         </div>
 
         <div class="contact-grid">
           <form id="contact-form" class="contact-form" action="https://formspree.io/f/mpqnavkk" method="POST" novalidate>
             <input type="hidden" name="_subject" value="New Tutors Elevate enquiry" />
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <div class="field-row">
               <div class="field">
-                <label for="parent">Parent name <span class="req">*</span></label>
+                <label for="parent">Your name <span class="req" aria-hidden="true">*</span></label>
                 <input id="parent" name="parent" type="text" autocomplete="name" required />
               </div>
               <div class="field">
-                <label for="child">Child's name <span class="req">*</span></label>
-                <input id="child" name="child" type="text" required />
+                <label for="child">Student's first name <span class="opt">(optional)</span></label>
+                <input id="child" name="child" type="text" autocomplete="off" />
               </div>
             </div>
             <div class="field-row">
               <div class="field">
-                <label for="email">Parent email <span class="opt">(optional)</span></label>
+                <label for="email">Email <span class="opt">(optional)</span></label>
                 <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
               </div>
               <div class="field">
-                <label for="phone">Parent phone <span class="req">*</span></label>
+                <label for="phone">Phone number <span class="req" aria-hidden="true">*</span></label>
                 <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="07…" required />
               </div>
             </div>
             <div class="field-row">
               <div class="field">
-                <label for="year">Year group <span class="req">*</span></label>
+                <label for="year">Year group <span class="req" aria-hidden="true">*</span></label>
                 <select id="year" name="year" required>
                   <option value="">Select…</option>
                   <option>Year 5</option><option>Year 6</option>
@@ -540,43 +539,49 @@
                 </select>
               </div>
               <div class="field">
-                <label for="board">Exam board (if known)</label>
+                <label for="board">Exam board <span class="opt">(optional)</span></label>
                 <input id="board" name="board" type="text" placeholder="AQA / Edexcel / OCR…" />
               </div>
             </div>
             <div class="field">
-              <label for="subjects">Subject(s) of interest <span class="req">*</span></label>
+              <label for="subjects">Subject(s) of interest <span class="req" aria-hidden="true">*</span></label>
               <input id="subjects" name="subjects" type="text" placeholder="Maths, Further Maths, Physics…" required />
             </div>
             <div class="field">
-              <label for="note">What you'd like help with</label>
-              <textarea id="note" name="note" placeholder="A short description: topics, exams, goals…"></textarea>
+              <label for="note">What you'd like help with <span class="opt">(optional)</span></label>
+              <textarea id="note" name="note" aria-describedby="note-hint" placeholder="A short description: topics, exams, goals…"></textarea>
+              <span class="field-hint" id="note-hint">Please don't include health, medical or special educational needs details here. We can talk about anything like that on the call.</span>
             </div>
             <div class="field-row">
               <div class="field">
-                <label for="contact_method">Preferred contact</label>
+                <label for="contact_method">Preferred contact <span class="opt">(optional)</span></label>
                 <select id="contact_method" name="contact_method">
                   <option>Email</option>
                   <option>Phone</option>
                 </select>
               </div>
               <div class="field">
-                <label for="best_time">Best time to reach you</label>
+                <label for="best_time">Best time to reach you <span class="opt">(optional)</span></label>
                 <input id="best_time" name="best_time" type="text" placeholder="Weekday evenings…" />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send enquiry <span class="arr">→</span></button>
-            <div id="form-status" class="form-status" hidden></div>
+            <p style="font-size:0.85rem;color:var(--ink-500);margin:0 0 10px;">Fields marked <span class="req" aria-hidden="true" style="color:#c0392b;font-weight:700;">*</span> are required.</p>
+            <div class="field-check">
+              <input type="checkbox" id="privacy" name="privacy_confirmed" value="yes" required />
+              <label for="privacy">I am the student's parent or guardian, or I am 18 or over, and I have read the <a href="privacy.html">privacy notice</a>. <span class="req" aria-hidden="true">*</span></label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send enquiry <span class="arr" aria-hidden="true">→</span></button>
+            <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
             <div class="form-note">
-              Used only to arrange your consultation. Not shared, no marketing list, no follow-ups if you don't book.
+              We use your details only to reply and arrange your consultation. The form is delivered to us by Formspree. We don't sell your details, add you to a mailing list or chase you if you don't book. See our <a href="privacy.html">privacy notice</a>.
             </div>
           </form>
 
-          <aside class="contact-side">
+          <div class="contact-side">
             <h3 style="margin-bottom:24px;">Or get in touch directly</h3>
             <dl>
               <dt>WhatsApp</dt>
-              <dd><a href="https://wa.me/447356222384" target="_blank" rel="noopener">Message us on WhatsApp →</a></dd>
+              <dd><a href="https://wa.me/447356222384" target="_blank" rel="noopener">Message us on WhatsApp<span class="visually-hidden"> (opens in a new tab)</span> →</a></dd>
               <dt>Email</dt>
               <dd><a href="mailto:Ilham@tutorselevate.co.uk">Ilham@tutorselevate.co.uk</a></dd>
               <dt>Phone</dt>
@@ -593,7 +598,7 @@
               <h4 style="color:var(--green-700); margin-bottom:8px;">Not ready to book?</h4>
               <p style="font-size:0.95rem; color:var(--ink-700); margin:0;">Email any question. We'll answer in writing first if that's easier.</p>
             </div>
-          </aside>
+          </div>
         </div>
       </div>
     </section>
@@ -610,7 +615,7 @@
         <p class="footer-tag">Specialist online tuition in Maths, Sciences, Computer Science and English. Year 5 to A-Level.</p>
       </div>
       <div>
-        <h4>Site</h4>
+        <h2>Site</h2>
         <ul class="footer-links">
           <li><a href="#about">About</a></li>
           <li><a href="subjects.html">Subjects &amp; checklists</a></li>
@@ -622,7 +627,7 @@
         </ul>
       </div>
       <div>
-        <h4>Get in touch</h4>
+        <h2>Get in touch</h2>
         <p class="footer-contact">
           <a href="https://wa.me/447356222384" target="_blank" rel="noopener">WhatsApp →</a><br />
           <a href="mailto:Ilham@tutorselevate.co.uk">Ilham@tutorselevate.co.uk</a><br />
@@ -635,17 +640,19 @@
     </div>
     <div class="container footer-bottom">
       <div>© <span data-year>2026</span> Tutors Elevate. All rights reserved.</div>
-      <div>Privacy · Terms · Cookies</div>
+      <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds &amp; cancellations</a><a href="cookies.html">Cookies</a><a href="accessibility.html">Accessibility</a></nav>
     </div>
+    <div class="container"><p class="footer-legal"><!--BIZ-->Tutors Elevate Ltd &middot; Registered in England and Wales, company number 17394433 &middot; Email <a href="mailto:Ilham@tutorselevate.co.uk">Ilham@tutorselevate.co.uk</a> &middot; Phone <a href="tel:+447467218151">07467 218151</a><!--/BIZ--></p></div>
   </footer>
 
+  <aside aria-label="Quick contact">
   <!-- Floating contact widget -->
   <div class="fab" id="contact-fab">
     <button class="fab-toggle" type="button" aria-label="Open contact options" aria-expanded="false" aria-controls="fab-panel">
-      <svg class="fab-icon-open" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg class="fab-icon-open" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
       </svg>
-      <svg class="fab-icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <svg class="fab-icon-close" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
       <span class="fab-label">Contact</span>
@@ -677,35 +684,7 @@
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
     </svg>
   </a>
-
-  <!-- Cookie banner -->
-  <div class="cookie" role="dialog" aria-live="polite" aria-label="Cookie preferences">
-    <p>Essential cookies keep the site working. Optional analytics help us improve it.</p>
-    <div class="cookie-actions">
-      <button class="btn btn-primary" data-cookie="all">Accept all</button>
-      <button class="btn btn-ghost" data-cookie="essential">Essential only</button>
-    </div>
-  </div>
-
-  <!-- "Not sure where to start?" booking nudge modal -->
-  <div class="unsure-modal" id="unsure-modal" hidden role="dialog" aria-modal="true" aria-labelledby="unsure-title">
-    <div class="unsure-modal-backdrop" data-unsure-close></div>
-    <div class="unsure-modal-card">
-      <button class="unsure-modal-close" data-unsure-close aria-label="Close">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-      <div class="unsure-card">
-        <h3 id="unsure-title">Not sure where to start?</h3>
-        <p>Book a free 15-minute consultation — no commitment, no card details. We'll work out which tutor and format fits your child best.</p>
-        <div class="unsure-actions">
-          <a href="#contact" class="btn btn-primary btn-lg" data-unsure-close>Book free consultation <span class="arr">→</span></a>
-          <a href="https://wa.me/447356222384" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-unsure-close>Message on WhatsApp</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  </aside>
 
   <script src="assets/script.js"></script>
 </body>

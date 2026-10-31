@@ -4,13 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meet the Team — Specialist Tutors · Tutors Elevate</title>
-  <meta name="description" content="Meet the Tutors Elevate team — specialist online tutors in Maths, Sciences, Computer Science and English. Years 5 to A-Level. Every tutor trained in-house." />
+  <meta name="description" content="Meet the Tutors Elevate team — specialist online tutors in Maths, Sciences, Computer Science and English. Years 5 to A-Level." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://tutorselevate.co.uk/tutors.html" />
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -26,7 +24,7 @@
         </span>
       </a>
       <nav aria-label="Primary">
-        <ul class="nav-links">
+        <ul class="nav-links" id="primary-nav">
           <li><a href="index.html#about">About</a></li>
           <li><a href="subjects.html">Subjects</a></li>
           <li><a href="tutors.html" class="is-active">Tutors</a></li>
@@ -42,8 +40,8 @@
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
           </svg>
         </a>
-        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="primary-nav">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <line x1="3" y1="6" x2="21" y2="6"/>
             <line x1="3" y1="12" x2="21" y2="12"/>
             <line x1="3" y1="18" x2="21" y2="18"/>
@@ -60,7 +58,7 @@
       <div class="container">
         <span class="eyebrow">The team</span>
         <h1>Meet your tutors.</h1>
-        <p class="lead">Every tutor at Tutors Elevate completed intensive in-house training before their first lesson. Each has top grades in the subjects they teach — and years of experience teaching them.</p>
+        <p class="lead">A small team of specialist tutors, each teaching the subjects they know best.</p>
         <nav class="page-nav-pills" aria-label="Jump to tutor">
           <a href="#ilham">Ilham</a>
           <a href="#dayan">Dayan</a>
@@ -114,7 +112,7 @@
               </div>
             </div>
             <div class="tutor-full-body">
-              <p>Dayan teaches Computer Science, English and Maths from KS2 to A-Level. She is consistently the tutor that anxious or disengaged students are matched to first, because her calm and patient style reliably rebuilds confidence — a pattern that shows up repeatedly in our student survey results.</p>
+              <p>Dayan teaches Computer Science, English and Maths from KS2 to A-Level. Her calm and patient style suits students who are anxious about a subject or have lost confidence in it.</p>
               <p>English is where Dayan's range is most striking. She teaches the subject across every level from KS2 through to A-Level — reading comprehension, creative writing, language analysis, analytical essays and literature — and covers all major exam boards including AQA, Edexcel and OCR. She knows the mark schemes in fine detail and teaches students exactly what examiners are rewarding: the habits of annotation, structure and textual evidence that turn understanding into marks. For A-Level Literature students she works closely on set texts and coursework; for KS3 and GCSE students she builds the essay-writing foundations that hold up under timed conditions.</p>
               <p>In Computer Science, Dayan bridges the gap between theory and real code. She has written production software professionally and teaches students how it actually works — not just the textbook definitions. She is especially strong on NEA coursework support: students come to her with half-formed projects and leave with well-evidenced, well-tested submissions.</p>
               <p>In Maths, she is particularly patient with students who have developed anxiety around the subject from earlier years, taking time to rebuild the foundational confidence that makes everything else possible.</p>
@@ -236,30 +234,30 @@
         </div>
 
         <div class="training" style="margin-top:0;">
-          <h3>In-house training before the first lesson.</h3>
-          <p>Every tutor completes an intensive in-house training programme before they teach their first student. That means lesson planning structure, how to adapt to different learning styles, how to give feedback that students and parents actually find useful, and how to handle the moments when a student is stuck and frustrated.</p>
+          <h3>A shared standard from the first lesson.</h3>
+          <p>Before they teach their first student, every tutor is briefed on how we work: how lessons are planned and structured, how to adapt to different students, how to give feedback that students and parents find useful, and how to help a student who is stuck and frustrated.</p>
         </div>
 
         <div class="philosophy" style="margin-top:24px;">
           <div class="principle">
             <span class="num-mark">✓</span>
-            <h3>Top grades in their subject.</h3>
-            <p>We don't recruit anyone who hasn't achieved at the highest level in what they teach. You can't teach what you don't know deeply.</p>
+            <h3>Strong subject knowledge.</h3>
+            <p>Tutors teach only the subjects they know deeply. You can't teach what you don't understand well yourself.</p>
           </div>
           <div class="principle">
             <span class="num-mark">✓</span>
-            <h3>Years of teaching experience.</h3>
-            <p>All our tutors have taught the same subjects across multiple year groups for multiple years. Experience in the classroom is different from knowing the content.</p>
+            <h3>Teaching experience.</h3>
+            <p>Our tutors have taught their subjects across different year groups. Experience in teaching is different from knowing the content.</p>
           </div>
           <div class="principle">
             <span class="num-mark">✓</span>
-            <h3>Peer review of lesson plans.</h3>
-            <p>Tutors review each other's lesson plans regularly. It keeps standards up and stops habits forming that students eventually notice.</p>
+            <h3>Every lesson planned.</h3>
+            <p>Lessons are planned in advance around the student's goals and exam board, with homework set to match.</p>
           </div>
           <div class="principle">
             <span class="num-mark">✓</span>
-            <h3>Direct student feedback every term.</h3>
-            <p>We survey students independently, not through the tutor. The results go back to every tutor and to us. That's how the 97% recommendation rate gets maintained.</p>
+            <h3>Direct student feedback.</h3>
+            <p>We ask students for feedback through a short survey that goes to us, not through the tutor. The results go back to every tutor. In our April to May 2026 survey, 15 of 16 students said they would recommend their tutor at the highest rating.</p>
           </div>
         </div>
       </div>
@@ -271,8 +269,8 @@
         <div class="careers-card">
           <span class="eyebrow">Careers · Join us</span>
           <h2>Elevate together.</h2>
-          <p>We're a small team, and we invest in the people we work with. Intensive in-house training before your first lesson, regular subject CPD, honest feedback to help you keep getting better. We grow as our tutors grow.</p>
-          <p style="margin-bottom:24px;">If you love a subject, teach with patience, and think you'd be a fit — we'd like to hear from you. Send your CV and a short note on your experience and subjects to <a href="mailto:Ilham@tutorselevate.co.uk?subject=Tutoring%20application%20%E2%80%94%20CV%20%26%20experience">Ilham@tutorselevate.co.uk</a>.</p>
+          <p>We're a small team, and we invest in the people we work with: a clear briefing on how we teach before your first lesson, and honest feedback to help you keep getting better. We grow as our tutors grow.</p>
+          <p style="margin-bottom:24px;">If you love a subject, teach with patience, and think you'd be a fit — we'd like to hear from you. Send your CV and a short note on your experience and subjects to <a href="mailto:Ilham@tutorselevate.co.uk?subject=Tutoring%20application%20%E2%80%94%20CV%20%26%20experience">Ilham@tutorselevate.co.uk</a>. Our <a href="privacy.html#applicants">privacy notice</a> explains how we handle applications.</p>
           <a href="mailto:Ilham@tutorselevate.co.uk?subject=Tutoring%20application%20%E2%80%94%20CV%20%26%20experience" class="btn btn-primary btn-lg">Apply to teach with us <span class="arr">→</span></a>
         </div>
       </div>
@@ -284,7 +282,7 @@
         <div class="unsure-card">
           <div>
             <h3>Ready to book a free trial?</h3>
-            <p>We'll match your child to the right tutor and arrange a free trial lesson within a week. No card details, no commitment.</p>
+            <p>We'll match your child to the right tutor and arrange a free trial lesson, usually within a week. No card details, no commitment.</p>
           </div>
           <div class="unsure-actions">
             <a href="index.html#contact" class="btn btn-primary btn-lg">Book free consultation →</a>
@@ -309,7 +307,7 @@
         <p class="footer-tag">Specialist online tuition in Maths, Sciences, Computer Science and English. Year 5 to A-Level.</p>
       </div>
       <div>
-        <h4>The team</h4>
+        <h2>The team</h2>
         <ul class="footer-links">
           <li><a href="#ilham">Ilham — Maths &amp; Physics</a></li>
           <li><a href="#dayan">Dayan — CS &amp; English</a></li>
@@ -319,7 +317,7 @@
         </ul>
       </div>
       <div>
-        <h4>Get in touch</h4>
+        <h2>Get in touch</h2>
         <p class="footer-contact">
           <a href="https://wa.me/447356222384" target="_blank" rel="noopener">WhatsApp →</a><br />
           <a href="mailto:Ilham@tutorselevate.co.uk">Ilham@tutorselevate.co.uk</a><br />
@@ -330,18 +328,10 @@
     </div>
     <div class="container footer-bottom">
       <div>© <span data-year>2026</span> Tutors Elevate. All rights reserved.</div>
-      <div><a href="index.html">Home</a> · <a href="subjects.html">Subjects</a> · <a href="index.html#contact">Contact</a></div>
+      <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="refunds.html">Refunds &amp; cancellations</a><a href="cookies.html">Cookies</a><a href="accessibility.html">Accessibility</a></nav>
     </div>
+    <div class="container"><p class="footer-legal"><!--BIZ-->Tutors Elevate Ltd &middot; Registered in England and Wales, company number 17394433 &middot; Email <a href="mailto:Ilham@tutorselevate.co.uk">Ilham@tutorselevate.co.uk</a> &middot; Phone <a href="tel:+447467218151">07467 218151</a><!--/BIZ--></p></div>
   </footer>
-
-  <!-- Cookie banner -->
-  <div class="cookie" role="dialog" aria-live="polite" aria-label="Cookie preferences">
-    <p>Essential cookies keep the site working. Optional analytics help us improve it.</p>
-    <div class="cookie-actions">
-      <button class="btn btn-primary" data-cookie="all">Accept all</button>
-      <button class="btn btn-ghost" data-cookie="essential">Essential only</button>
-    </div>
-  </div>
 
   <script src="assets/script.js"></script>
 </body>
