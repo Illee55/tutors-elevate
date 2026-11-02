@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TutorsElevateLearningApp — Tutor</title>
+<link rel="icon" href="logo.png.svg" type="image/svg+xml">
+<script>
+  // (Only a signed-in tutor can see this page: TelaDB.start("tutor") below sends anyone else to the sign-in page.)
+  // Start with the sidebar collapsed if that was the last choice.
+  try { if (localStorage.getItem("tela.tutorSidebarCollapsed") === "1") document.documentElement.classList.add("side-collapsed"); } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-900: #0a3d2c;
+    --green-800: #0f5132;
+    --green-700: #146c43;
+    --green-600: #198754;
+    --green-100: #e3f2ea;
+    --green-50:  #f2f8f5;
+    --brown-900: #3b2618;
+    --brown-800: #5c3d27;
+    --brown-700: #7a5235;
+    --brown-500: #a9805c;
+    --brown-200: #e8d9c4;
+    --brown-100: #f2e8da;
+    --brown-50:  #faf5ee;
+    --ink: #13261e;
+    --muted: #6f6256;
+    --line: #e6d9c8;
+    --white: #ffffff;
+    --amber: #e0a43a;
+    --track: #ece2d4;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(10, 61, 44, .06), 0 4px 16px rgba(10, 61, 44, .06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--brown-100); color: var(--ink); line-height: 1.5; min-height: 100vh; }
+  button { font: inherit; cursor: pointer; }
+
+  header { background: var(--green-800); color: var(--white); padding: 40px 24px 88px; }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .head-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo { width: 46px; height: 46px; border-radius: 50%; display: block; flex: none; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -.02em; }
+  .subtitle { color: rgba(255,255,255,.75); font-size: 14px; }
+  .btn { border: none; border-radius: 10px; padding: 10px 18px; font-weight: 600; font-size: 14px; }
+  .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.4); }
+  .btn-outline:hover { background: rgba(255,255,255,.1); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+  .stat { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius); padding: 16px; }
+  .stat-num { font-size: 28px; font-weight: 700; }
+  .stat-label { color: rgba(255,255,255,.75); font-size: 14px; }
+
+  main { margin-top: -56px; padding: 0 24px 64px; }
+  .panel { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; margin-bottom: 20px; }
+  .search { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 10px; padding: 0 14px; color: var(--muted); }
+  .search:focus-within { border-color: var(--green-600); }
+  .search input { flex: 1; border: none; outline: none; font: inherit; font-size: 15px; padding: 12px 0; color: var(--ink); background: none; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  .student { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .s-head { display: flex; align-items: center; gap: 12px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--green-100); color: var(--green-800); display: grid; place-items: center; font-weight: 700; flex: none; }
+  .s-head h2 { font-size: 17px; letter-spacing: -.01em; }
+  .s-head small { color: var(--muted); font-size: 13px; }
+  .s-summary { display: flex; align-items: center; gap: 18px; }
+  .donut { display: block; flex: none; }
+  .donut circle { fill: none; }
+  .donut .c-track { stroke: var(--track); }
+  .donut .c-done { stroke: var(--green-600); }
+  .donut .c-doing { stroke: var(--amber); }
+  .donut text { font-family: "Inter", sans-serif; font-size: 20px; font-weight: 700; fill: var(--green-800); }
+  .key { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14px; flex: 1; }
+  .key li { display: grid; grid-template-columns: 12px 1fr auto; align-items: center; gap: 8px; }
+  .key i { width: 12px; height: 12px; border-radius: 3px; }
+  .key strong { font-size: 14px; }
+  .s-section h3 { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { background: var(--brown-50); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; font-size: 13px; }
+  .notes { background: var(--brown-50); border-left: 3px solid var(--green-600); border-radius: 8px; padding: 10px 12px; font-size: 14px; white-space: pre-wrap; }
+  .muted { color: var(--muted); font-size: 14px; }
+  /* Two by two, so longer times like "12 h 45 min" have room */
+  .time-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .time-tile { background: var(--brown-50); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  .time-tile strong { display: block; font-size: 18px; line-height: 1.3; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .time-tile span { font-size: 13px; color: var(--muted); }
+  .time-extra { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .35s ease, opacity .35s ease; }
+  .time-extra.open { grid-template-rows: 1fr; opacity: 1; }
+  .time-extra > div { overflow: hidden; min-height: 0; }
+  .time-extra .time-tiles { padding-top: 10px; }
+  @media (prefers-reduced-motion: reduce) { .time-extra, .time-more .chev { transition: none; } }
+  .time-more {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 4px 0;
+    border: none; background: none; color: var(--green-700); font-size: 13px; font-weight: 600;
+  }
+  .time-more:hover { text-decoration: underline; }
+  .time-more .chev { width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform .35s ease; }
+  .time-more[aria-expanded="true"] .chev { transform: translateY(1px) rotate(-135deg); }
+  .empty { text-align: center; color: var(--muted); padding: 48px 16px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .empty h3 { color: var(--ink); margin-bottom: 6px; }
+
+  .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .remove-btn {
+    margin-left: auto; align-self: flex-start; border: 1px solid var(--line); background: var(--white); color: #b42318;
+    border-radius: 8px; padding: 5px 10px; font-size: 13px; font-weight: 600;
+  }
+  .remove-btn:hover { background: #fdecea; border-color: #f2b2b2; }
+  .btn-light { background: var(--white); color: var(--green-800); }
+  .btn-light:hover { background: var(--green-100); }
+  .btn-primary { background: var(--green-700); color: var(--white); }
+  .btn-primary:hover { background: var(--green-800); }
+  .btn-ghost { background: transparent; color: var(--muted); }
+  .btn-ghost:hover { background: var(--brown-50); }
+
+  .overlay {
+    position: fixed; inset: 0; background: rgba(10, 30, 22, .45); display: none; align-items: center; justify-content: center;
+    padding: 16px; z-index: 50; backdrop-filter: blur(2px);
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 16px; width: 100%; max-width: 440px; max-height: calc(100vh - 32px); overflow-y: auto;
+    padding: 26px; box-shadow: 0 24px 60px rgba(0,0,0,.3); animation: pop .2s ease;
+  }
+  @keyframes pop { from { transform: scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal h2 { font-size: 20px; letter-spacing: -.01em; }
+  .modal .lead { color: var(--muted); font-size: 14px; margin: 4px 0 18px; }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
+  .field input { font: inherit; font-size: 15px; font-weight: 400; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; color: var(--ink); outline: none; }
+  .field input:focus { border-color: var(--green-600); box-shadow: 0 0 0 4px rgba(25,135,84,.12); }
+  .field input.invalid, .field select.invalid { border-color: #b42318; }
+  .field select, .field textarea { font: inherit; font-size: 15px; font-weight: 400; border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 12px; color: var(--ink); background: var(--white); outline: none; }
+  .field textarea { min-height: 70px; resize: vertical; }
+  .field select:focus, .field textarea:focus { border-color: var(--green-600); box-shadow: 0 0 0 4px rgba(25,135,84,.12); }
+  .modal { max-width: 500px; }
+  .hw-current { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .hw-current h3, .s-section h3 { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .hw-rows { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .hw-rows li { display: flex; align-items: center; gap: 10px; font-size: 14px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; }
+  .hw-rows li span:first-child { flex: 1; }
+  .hw-rows small { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .pill { font-size: 12px; font-weight: 600; border-radius: 99px; padding: 2px 9px; white-space: nowrap; background: var(--brown-100); color: var(--muted); }
+  .pill.doing { background: #fdf3e1; color: #9a6510; }
+  .pill.done { background: var(--green-100); color: var(--green-800); }
+  .pill.overdue { background: #b42318; color: #fff; }
+  .hw-rows li.overdue { background: #fdeaea; border-color: #f2b2b2; border-left: 4px solid #b42318; }
+  .hw-rows li.overdue small { color: #b42318; }
+  .hw-remove { border: none; background: none; color: #b42318; font-size: 13px; font-weight: 600; padding: 2px 4px; border-radius: 6px; }
+  .hw-remove:hover { background: #fdecea; }
+  .s-actions { margin-top: auto; }
+  .field .input-wrap { position: relative; display: flex; flex-direction: column; }
+  .field .input-wrap input { padding-right: 60px; }
+  .toggle-pw {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    border: none; background: transparent; color: var(--muted); cursor: pointer;
+    font: inherit; font-size: 12px; font-weight: 600; padding: 6px 8px; border-radius: 6px;
+  }
+  .toggle-pw:hover { background: var(--brown-50); color: var(--green-700); }
+  .field small { font-weight: 400; color: var(--muted); font-size: 12px; }
+  .field .opt { font-weight: 400; color: var(--muted); }
+  .error { display: none; background: #fdecea; color: #b42318; border-radius: 10px; padding: 10px 12px; font-size: 14px; margin-bottom: 14px; }
+  .error.show { display: block; }
+  .mode-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--brown-50); border-radius: 10px; padding: 4px; margin: 14px 0 4px; }
+  .mode-tab { border: none; background: transparent; border-radius: 8px; padding: 8px; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .mode-tab.active { background: var(--white); color: var(--green-800); box-shadow: 0 1px 3px rgba(10,61,44,.12); }
+  [hidden] { display: none !important; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 6px; }
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(90px); background: var(--brown-900); color: var(--white);
+    padding: 10px 18px; border-radius: 10px; font-size: 14px; transition: transform .25s; z-index: 60; max-width: calc(100vw - 32px);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 720px) {
+    header { padding: 28px 16px 80px; }
+    main { padding: 0 16px 48px; }
+    h1 { font-size: 24px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Sidebar and its slide-out panel ---------- */
+  html { --side-w: 200px; }
+  html.side-collapsed { --side-w: 68px; }
+  body { padding-left: var(--side-w); }
+  html.side-ready body, html.side-ready .sidebar { transition: padding-left .2s ease, width .2s ease; }
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; width: var(--side-w); z-index: 47; background: var(--brown-50);
+    border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; padding: 20px 12px; overflow: hidden;
+  }
+  .side-top { display: flex; align-items: center; justify-content: space-between; padding: 0 0 10px 12px; min-height: 36px; }
+  .side-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .side-toggle { flex: none; width: 36px; height: 36px; border: none; background: none; border-radius: 10px; color: var(--muted); display: grid; place-items: center; }
+  .side-toggle:hover { background: var(--brown-200); color: var(--green-800); }
+  .side-toggle svg { transition: transform .2s ease; }
+  .side-btn {
+    position: relative; display: flex; align-items: center; gap: 12px; width: 100%; border: none; background: none;
+    padding: 11px 12px; border-radius: 10px; color: var(--ink); font-weight: 600; font-size: 14px; text-align: left;
+  }
+  .side-btn svg { flex: none; color: var(--green-700); }
+  .side-btn:hover { background: var(--brown-200); }
+  .side-btn.active { background: var(--green-100); color: var(--green-800); }
+  .side-btn:focus-visible, .side-toggle:focus-visible { outline: 3px solid var(--green-600); outline-offset: 1px; }
+  .side-badge {
+    margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 99px;
+    background: var(--green-700); color: var(--white); font-size: 11px; font-weight: 700; display: grid; place-items: center;
+  }
+  .side-badge[hidden] { display: none; }
+  .side-collapsed .side-top { padding-left: 4px; }
+  .side-collapsed .side-label, .side-collapsed .side-btn span { display: none; }
+  .side-collapsed .side-toggle svg { transform: rotate(180deg); }
+  .side-collapsed .side-btn { justify-content: center; padding: 11px 0; }
+  .side-collapsed .side-badge { position: absolute; top: 3px; right: 8px; margin: 0; min-width: 17px; height: 17px; padding: 0 4px; font-size: 10px; }
+
+  .drawer-overlay { position: fixed; inset: 0 0 0 var(--side-w); background: rgba(10, 30, 22, .35); z-index: 45; display: none; }
+  .drawer-overlay.open { display: block; }
+  .drawer {
+    position: absolute; top: 0; bottom: 0; left: 0; width: min(460px, 100%); background: var(--white);
+    box-shadow: 0 0 40px rgba(0,0,0,.2); display: flex; flex-direction: column; animation: slideIn .2s ease;
+  }
+  @keyframes slideIn { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 22px 24px 14px; border-bottom: 1px solid var(--line); }
+  .drawer-head h2 { font-size: 20px; letter-spacing: -.01em; }
+  .icon-btn { width: 36px; height: 36px; border: none; background: none; border-radius: 10px; color: var(--muted); display: grid; place-items: center; }
+  .icon-btn:hover { background: var(--brown-50); color: var(--ink); }
+  .drawer-body { padding: 18px 24px 32px; overflow-y: auto; flex: 1; }
+  .new-pill { background: var(--green-700); color: var(--white); font-size: 11px; font-weight: 700; border-radius: 99px; padding: 2px 8px; margin-left: 6px; letter-spacing: 0; text-transform: none; vertical-align: 1px; }
+  .msg-preview { font-size: 14px; overflow-wrap: anywhere; }
+  .msg-preview small { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .s-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* Conversation list */
+  .convo-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .convo {
+    width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; border: 1px solid var(--line);
+    background: var(--white); border-radius: 12px; padding: 10px 12px; color: var(--ink);
+  }
+  .convo:hover { border-color: var(--green-600); background: var(--brown-50); }
+  .convo.unread { border-color: var(--green-600); }
+  .convo-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .convo-top { display: flex; justify-content: space-between; gap: 8px; }
+  .convo-top small { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .convo-preview { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .convo.unread .convo-preview { color: var(--ink); font-weight: 600; }
+  /* Group chats: their own list above the students, and the form for making or editing one */
+  .convo-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 4px 0 8px; }
+  .convo-head h3 { font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .convo-head .btn { padding: 6px 12px; font-size: 13px; color: var(--green-800); }
+  .convo-list + .convo-head, .muted + .convo-head { margin-top: 20px; }
+  .avatar.group { background: var(--green-700); color: var(--white); }
+  .group-form { display: flex; flex-direction: column; }
+  .group-form .chat-head { margin-bottom: 14px; }
+  .member-list { list-style: none; display: flex; flex-direction: column; gap: 4px; max-height: 300px; overflow-y: auto; border: 1.5px solid var(--line); border-radius: 10px; padding: 6px; }
+  .member-list label { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 8px; font-weight: 500; font-size: 14px; cursor: pointer; }
+  .member-list label:hover { background: var(--brown-50); }
+  .member-list input { flex: none; width: 17px; height: 17px; padding: 0; margin: 0; accent-color: var(--green-700); box-shadow: none; }
+  .member-list small { color: var(--muted); font-weight: 400; }
+  .group-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .group-actions .btn-danger { margin-right: auto; background: transparent; color: #b42318; }
+  .group-actions .btn-danger:hover { background: #fdecea; }
+  /* Admin: every account, with buttons to make new ones */
+  .acc-new { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .acc-row { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--white); }
+  .acc-row .avatar.tutor { background: var(--green-700); color: var(--white); }
+  .acc-row small { color: var(--muted); font-size: 12px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .acc-row .you { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .acc-row .edit-btn {
+    margin-left: auto; border: 1px solid var(--line); background: var(--white); color: var(--green-800);
+    border-radius: 8px; padding: 5px 10px; font-size: 13px; font-weight: 600;
+  }
+  .acc-row .edit-btn:hover { background: var(--brown-50); border-color: var(--green-600); }
+  .acc-row .edit-btn ~ .remove-btn { margin-left: 0; align-self: center; }
+
+  /* One conversation: it scrolls, with the message box at the bottom */
+  .drawer-body.chat-mode { display: flex; flex-direction: column; overflow: hidden; padding-bottom: 16px; }
+  .chat { display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; }
+  .chat-head { display: flex; align-items: center; gap: 10px; }
+  .chat-head small { display: block; color: var(--muted); font-size: 12px; }
+  .chat-head .chat-hw { margin-left: auto; padding: 7px 12px; }
+  .chat-notice { display: flex; align-items: center; gap: 8px; margin: 0; padding: 8px 12px; border-radius: 10px; background: #fdf3e1; color: #7a4f0c; border: 1px solid #f3dcb0; font-size: 13px; font-weight: 500; }
+  .chat-notice svg { flex: none; }
+  /* Admin view of all conversations */
+  .admin-note { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .chat .admin-note { margin: 0; }
+  .admin-search { margin-bottom: 12px; }
+  .admin-search input { padding: 9px 0; font-size: 14px; }
+  .msg-count { flex: none; min-width: 26px; height: 22px; padding: 0 7px; border-radius: 99px; background: var(--brown-50); border: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+  .bubble-from { font-size: 11px; font-weight: 700; opacity: .8; margin-bottom: 2px; }
+  .chat-list { flex: 1; min-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: var(--brown-50); border-radius: 12px; padding: 12px; }
+  .chat-empty { margin: auto; text-align: center; color: var(--muted); font-size: 14px; max-width: 260px; }
+  .bubble { max-width: 82%; padding: 8px 12px; border-radius: 16px; font-size: 14px; line-height: 1.45; box-shadow: 0 1px 1px rgba(10,61,44,.06); }
+  .bubble.mine { align-self: flex-end; background: var(--green-700); color: var(--white); border-bottom-right-radius: 4px; }
+  .bubble.theirs { align-self: flex-start; background: var(--white); color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .bubble-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .bubble-time { font-size: 11px; opacity: .7; text-align: right; margin-top: 2px; }
+  .composer { display: flex; gap: 8px; align-items: flex-end; }
+  .composer textarea { flex: 1; font: inherit; font-size: 14px; border: 1.5px solid var(--line); border-radius: 12px; padding: 9px 12px; resize: none; max-height: 120px; color: var(--ink); }
+  .composer textarea:focus { outline: none; border-color: var(--green-600); }
+
+  @media (max-width: 720px) {
+    /* On phones the sidebar becomes a bar along the bottom. */
+    body { padding-left: 0; padding-bottom: 64px; }
+    .sidebar { top: auto; width: 100%; height: 64px; flex-direction: row; padding: 6px; border-right: none; border-top: 1px solid var(--line); }
+    .side-top { display: none; }
+    .side-btn, .side-collapsed .side-btn { flex-direction: column; justify-content: center; gap: 2px; font-size: 12px; padding: 6px; }
+    .side-collapsed .side-btn span { display: inline; }
+    .side-badge, .side-collapsed .side-badge { position: absolute; top: 2px; left: calc(50% + 6px); right: auto; margin: 0; min-width: 17px; height: 17px; padding: 0 4px; font-size: 10px; }
+    .drawer-overlay { inset: 0 0 64px 0; }
+    .drawer { width: 100%; }
+    .drawer-head { padding: 18px 16px 12px; }
+    .drawer-body { padding: 16px 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar: Students (the main page) and Messages (conversations with each student) -->
+<nav class="sidebar" aria-label="Menu">
+  <div class="side-top">
+    <div class="side-label">Menu</div>
+    <button type="button" class="side-toggle" id="sideToggle" aria-label="Collapse sidebar" aria-expanded="true" title="Collapse sidebar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+  </div>
+  <button type="button" class="side-btn active" data-view="students">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-.5A5.5 5.5 0 0 1 8 14h2a5.5 5.5 0 0 1 5.5 5.5v.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14a4.5 4.5 0 0 1 4.5 4.5v.5"/></svg>
+    <span>Students</span>
+  </button>
+  <button type="button" class="side-btn" data-view="messages">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg>
+    <span>Messages</span>
+    <b class="side-badge" id="msgBadge" hidden></b>
+  </button>
+  <!-- Only shown to admins (see ADMINS in the script): read-only view of every conversation -->
+  <button type="button" class="side-btn" data-view="admin" id="adminBtn" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>
+    <span>All messages</span>
+  </button>
+  <!-- Admins only: make and delete student and tutor accounts -->
+  <button type="button" class="side-btn" data-view="accounts" id="accountsBtn" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-.5A5.5 5.5 0 0 1 8 14h2a5.5 5.5 0 0 1 5.5 5.5v.5"/><path d="M19 8v6M16 11h6"/></svg>
+    <span>Accounts</span>
+  </button>
+</nav>
+
+<div class="drawer-overlay" id="drawerOverlay">
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-head">
+      <h2 id="drawerTitle">Messages</h2>
+      <button type="button" class="icon-btn" id="drawerClose" aria-label="Close messages">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="head-row">
+      <div class="brand">
+        <img class="logo" src="logo.png.svg" alt="TutorsElevateLearningApp logo">
+        <div>
+          <h1 id="greeting">Tutor dashboard</h1>
+          <div class="subtitle">See how each of your students is getting on.</div>
+        </div>
+      </div>
+      <div class="head-actions">
+        <button class="btn btn-outline" id="logoutBtn">Sign out</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="statStudents">0</div><div class="stat-label">Students</div></div>
+      <div class="stat"><div class="stat-num" id="statAverage">0%</div><div class="stat-label">Average confident</div></div>
+      <div class="stat"><div class="stat-num" id="statUnread">0</div><div class="stat-label">Unread messages</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="panel">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search" placeholder="Search students by name or username…" autocomplete="off" aria-label="Search students">
+      </label>
+      <p class="note">Shows your students. An admin decides which students each tutor teaches.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<!-- Admins only: make a student or tutor account -->
+<div class="overlay" id="accOverlay">
+  <form class="modal" id="accForm" role="dialog" aria-modal="true" aria-labelledby="accTitle" novalidate>
+    <h2 id="accTitle">New account</h2>
+    <div class="mode-tabs" id="accTabs" role="tablist">
+      <button type="button" class="mode-tab active" data-accrole="student" role="tab">Student</button>
+      <button type="button" class="mode-tab" data-accrole="tutor" role="tab">Tutor</button>
+    </div>
+    <p class="lead" id="accLead"></p>
+    <div class="error" id="accError" role="alert"></div>
+    <label class="field">Name<input id="accName" maxlength="40" autocomplete="off" placeholder="e.g. Keyara"></label>
+    <label class="field">Username<input id="accUser" maxlength="20" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <small>3–20 characters: letters, numbers, dots, dashes or underscores.</small></label>
+    <label class="field">Password<span class="input-wrap"><input id="accPass" type="password" autocomplete="new-password"><button type="button" class="toggle-pw" data-for="accPass">Show</button></span><small id="accPassHint">At least 8 characters.</small></label>
+    <label class="field">Confirm password<span class="input-wrap"><input id="accConfirm" type="password" autocomplete="new-password"><button type="button" class="toggle-pw" data-for="accConfirm">Show</button></span></label>
+    <div class="field" id="accTutorsField" role="group" aria-labelledby="accTutorsLabel">
+      <span id="accTutorsLabel">Tutors <span class="opt">(optional)</span></span>
+      <ul class="member-list" id="accTutors"></ul>
+      <small>They'll see this student's progress and can message them and set homework.</small>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="accCancel">Cancel</button>
+      <button type="submit" class="btn btn-primary" id="accSubmit">Create account</button>
+    </div>
+  </form>
+</div>
+
+<!-- Set homework for one student -->
+<div class="overlay" id="hwOverlay">
+  <form class="modal" id="hwForm" role="dialog" aria-modal="true" aria-labelledby="hwTitle" novalidate>
+    <h2 id="hwTitle">Set homework</h2>
+    <p class="lead" id="hwLead"></p>
+    <div class="error" id="hwError" role="alert"></div>
+    <label class="field">Topic<select id="hwTopic"></select></label>
+    <label class="field">Number of questions
+      <input id="hwCount" type="number" min="1" step="1" inputmode="numeric" disabled>
+      <small id="hwCountHint">Choose a topic first.</small></label>
+    <label class="field"><span>Due date <span class="opt">(optional)</span></span><input id="hwDue" type="date"></label>
+    <label class="field"><span>Note for the student <span class="opt">(optional)</span></span><textarea id="hwNote" maxlength="300" placeholder="e.g. Do the whole set and try the explain questions."></textarea></label>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="hwCancel">Close</button>
+      <button type="submit" class="btn btn-primary">Set homework</button>
+    </div>
+    <div class="hw-current" id="hwCurrent"></div>
+  </form>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+  // questions.js adds each topic's questions with QUESTION_BANK.add({...}); here it's only used to count them.
+  window.QUESTION_BANK = { topics: {}, add(t) { const k = String(t && t.topic).trim().toLowerCase(); (this.topics[k] = this.topics[k] || []).push(t); } };
+</script>
+<script src="questions.js"></script>
+<script src="questions-biology.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js" integrity="sha384-sLWJsCmP+Z4Qn+HgF7Hi64Djta4fZMu0fcgi3uUL3GFV/ubx2G86LPOuMf7+ZIyX" crossorigin="anonymous"></script>
+<script src="db.js"></script>
+<script src="activity.js"></script>
+<script src="catalog.js"></script>
+<script src="messages.js"></script>
+<script src="dropdown.js"></script>
+<script>
+// The page starts once the signed-in tutor's students, homework and messages have loaded from Supabase (db.js).
+TelaDB.start("tutor").then(() => {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  const tutorUser = TelaDB.me().username;
+  const tutor = { displayName: TelaDB.me().displayName };
+  $("greeting").textContent = `${TelaMessages.properName(tutor.displayName)}'s students`;
+
+  // Each student's topics, statuses and messages come from what their dashboard saved (loaded by db.js).
+  const tutorsOf = acc => acc.tutors || [];
+  // Only this tutor's own students are shown, with this tutor's conversation with each (see messages.js).
+  let students = [];
+  const loadStudents = () => Object.entries(TelaDB.studentAccounts()).filter(([, acc]) => tutorsOf(acc).includes(tutorUser)).map(([username, acc]) => {
+    const topics = TelaDB.topicsOf(username);
+    const list = Array.isArray(topics) ? topics.filter(t => isShownSubject(t.subject)) : [];   // hidden subjects (catalog.js) left out
+    const count = s => list.filter(t => t.status === s).length;
+    return {
+      username, name: TelaMessages.properName(acc.displayName || username), opened: Array.isArray(topics), total: list.length,
+      done: count("done"), doing: count("doing"), todo: count("todo"),
+      working: list.filter(t => t.status === "doing").map(t => t.title),
+      lastMessage: TelaMessages.last(username, tutorUser), unread: TelaMessages.unread(username, tutorUser, "tutor"),
+      homework: TelaDB.homeworkOf(username).filter(hw => isShownSubject(hw.subject)),
+      activity: TelaDB.activityOf(username),
+      statusOf: title => (list.find(t => t.title.trim().toLowerCase() === title.trim().toLowerCase()) || {}).status || "todo"
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name));
+
+  function donut(st) {
+    const n = st.total, pct = n ? Math.round(st.done / n * 100) : 0;
+    let start = 0, rings = "";
+    [[st.done, "c-done"], [st.doing, "c-doing"]].forEach(([c, cls]) => {
+      const len = n ? c / n * 100 : 0;
+      if (len > 0) rings += `<circle class="${cls}" cx="50" cy="50" r="42" pathLength="100" stroke-width="13" stroke-dasharray="${len} ${100 - len}" stroke-dashoffset="${-start}"/>`;
+      start += len;
+    });
+    return `<svg class="donut" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="${st.done} confident, ${st.doing} in progress, ${st.todo} not started">
+      <circle class="c-track" cx="50" cy="50" r="42" stroke-width="13"/><g transform="rotate(-90 50 50)">${rings}</g>
+      <text x="50" y="57" text-anchor="middle">${pct}%</text></svg>`;
+  }
+
+  // Time active shows today and this week; the button under them opens this month and this year too.
+  const timeOpen = new Set();   // usernames of students whose month and year are showing
+  function timeTilesHTML(st) {
+    const t = TelaActivity.totals(st.activity), open = timeOpen.has(st.username);
+    const tiles = rows => `<div class="time-tiles">${rows.map(([label, secs]) =>
+      `<div class="time-tile"><strong>${TelaActivity.format(secs)}</strong><span>${label}</span></div>`).join("")}</div>`;
+    return `${tiles([["Today", t.day], ["This week", t.week]])}
+      <div class="time-extra${open ? " open" : ""}" aria-hidden="${!open}"><div>${tiles([["This month", t.month], ["This year", t.year]])}</div></div>
+      <button type="button" class="time-more" data-time="${esc(st.username)}" aria-expanded="${open}">
+        <span>${open ? "Hide month and year" : "Show month and year"}</span><i class="chev"></i></button>`;
+  }
+
+  function card(st) {
+    const summary = !st.opened ? `<p class="muted">Hasn't opened their dashboard yet.</p>`
+      : !st.total ? `<p class="muted">No topics on their dashboard yet.</p>`
+      : `<div class="s-summary">${donut(st)}<ul class="key">
+          <li><i style="background:var(--green-600)"></i><span>Confident</span><strong>${st.done}</strong></li>
+          <li><i style="background:var(--amber)"></i><span>In progress</span><strong>${st.doing}</strong></li>
+          <li><i style="background:var(--track)"></i><span>Not started</span><strong>${st.todo}</strong></li></ul></div>`;
+    const more = st.working.length > 8 ? `<span class="tag">+${st.working.length - 8} more</span>` : "";
+    return `<article class="student">
+      <div class="s-head"><span class="avatar">${esc(st.name.charAt(0).toUpperCase())}</span>
+        <div><h2>${esc(st.name)}</h2><small>@${esc(st.username)}</small></div></div>
+      ${summary}
+      <div class="s-section"><h3>Time active</h3>${Object.keys(st.activity).length
+        ? timeTilesHTML(st) : `<p class="muted">No time recorded yet.</p>`}</div>
+      ${st.working.length ? `<div class="s-section"><h3>Working on</h3><div class="tags">${st.working.slice(0, 8).map(t => `<span class="tag">${esc(t)}</span>`).join("")}${more}</div></div>` : ""}
+      <div class="s-section"><h3>Homework</h3>${homeworkRows(st, false)}</div>
+      <div class="s-section"><h3>Messages${st.unread ? ` <span class="new-pill">${st.unread} new</span>` : ""}</h3>${st.lastMessage
+        ? `<p class="msg-preview"><strong>${st.lastMessage.from === "tutor" ? "You" : esc(st.name.split(" ")[0])}:</strong> ${esc(st.lastMessage.text.length > 90 ? st.lastMessage.text.slice(0, 90) + "…" : st.lastMessage.text)} <small>${TelaMessages.when(st.lastMessage.at)}</small></p>`
+        : `<p class="muted">No messages yet.</p>`}</div>
+      <div class="s-actions">
+        <button type="button" class="btn btn-primary" data-homework="${esc(st.username)}">Set homework</button>
+        <button type="button" class="btn btn-ghost" data-chat="${esc(st.username)}">Message</button>
+      </div>
+    </article>`;
+  }
+
+  function render() {
+    const q = $("search").value.trim().toLowerCase();
+    const shown = students.filter(s => !q || s.name.toLowerCase().includes(q) || s.username.includes(q));
+    $("grid").innerHTML = shown.length ? shown.map(card).join("")
+      : `<div class="empty"><h3>${students.length ? "No students match your search" : "No students yet"}</h3>
+         <p>${students.length ? "Try a different name." : "An admin will put students with you, and they'll show up here."}</p></div>`;
+  }
+
+  function refresh() {
+    students = loadStudents();
+    const withTopics = students.filter(s => s.total);
+    $("statStudents").textContent = students.length;
+    $("statAverage").textContent = (withTopics.length ? Math.round(withTopics.reduce((a, s) => a + s.done / s.total, 0) / withTopics.length * 100) : 0) + "%";
+    $("statUnread").textContent = totalUnread();
+    render();
+    renderMsgBadge();
+    if (messagesOpen() && panelMode === "messages" && !chatStudent && !chatGroup && !groupEdit) $("drawerBody").innerHTML = conversationsHTML();
+  }
+  $("search").addEventListener("input", render);
+
+  // ---------- Sidebar: Messages with students ----------
+  // The panel shows the list of conversations, one conversation (chatStudent), one group chat (chatGroup)
+  // or the form for making or editing a group (groupEdit: "new" or the group's id).
+  let chatStudent = null, chatGroup = null, groupEdit = null;
+  const messagesOpen = () => $("drawerOverlay").classList.contains("open");
+  const firstName = st => esc(st.name.split(" ")[0]);
+  const myGroups = () => TelaMessages.groupsFor(tutorUser, "tutor");
+  const totalUnread = () => students.reduce((n, s) => n + s.unread, 0) + myGroups().reduce((n, g) => n + TelaMessages.groupUnread(g.id, tutorUser, "tutor"), 0);
+  // A group's members who are still this tutor's students.
+  const groupMembers = g => students.filter(s => g.members.includes(s.username));
+  const GROUP_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-.5A5.5 5.5 0 0 1 8 14h2a5.5 5.5 0 0 1 5.5 5.5v.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14a4.5 4.5 0 0 1 4.5 4.5v.5"/></svg>`;
+  const BACK_ICON = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>`;
+
+  function renderMsgBadge() {
+    const n = totalUnread();
+    $("msgBadge").textContent = n;
+    $("msgBadge").hidden = !n;
+    $("msgBadge").setAttribute("aria-label", `${n} unread`);
+  }
+  function groupsHTML() {
+    const groups = myGroups();
+    const rows = groups.length ? `<ul class="convo-list">${groups.map(g => {
+      const last = TelaMessages.groupLast(g.id), n = TelaMessages.groupUnread(g.id, tutorUser, "tutor"), members = groupMembers(g);
+      const preview = last ? `${last.role === "tutor" && last.from === tutorUser ? "You" : esc(TelaMessages.senderName(last).split(" ")[0])}: ${esc(last.text)}`
+        : `${members.length} student${members.length === 1 ? "" : "s"} · no messages yet`;
+      return `<li><button type="button" class="convo${n ? " unread" : ""}" data-group="${esc(g.id)}">
+        <span class="avatar group">${GROUP_ICON}</span>
+        <span class="convo-main"><span class="convo-top"><strong>${esc(g.name)}</strong>${last ? `<small>${TelaMessages.when(last.at)}</small>` : ""}</span>
+          <span class="convo-preview">${preview}</span></span>
+        ${n ? `<span class="side-badge">${n}</span>` : ""}
+      </button></li>`; }).join("")}</ul>`
+      : `<p class="muted">Make a group to message several students at once.</p>`;
+    return `<div class="convo-head"><h3>Group chats</h3><button type="button" class="btn btn-ghost" id="newGroup">+ New group</button></div>${rows}`;
+  }
+  // Group chats first, then each student, with the newest message first; students who haven't messaged yet come after.
+  function conversationsHTML() {
+    if (!students.length) return `<p class="muted">Once an admin puts students with you, you can message them here.</p>`;
+    const sorted = students.slice().sort((a, b) => (b.lastMessage ? b.lastMessage.at : 0) - (a.lastMessage ? a.lastMessage.at : 0) || a.name.localeCompare(b.name));
+    return `${groupsHTML()}<div class="convo-head"><h3>Students</h3></div><ul class="convo-list">${sorted.map(st => `<li><button type="button" class="convo${st.unread ? " unread" : ""}" data-chat="${esc(st.username)}">
+        <span class="avatar">${esc(st.name.charAt(0).toUpperCase())}</span>
+        <span class="convo-main"><span class="convo-top"><strong>${esc(st.name)}</strong>${st.lastMessage ? `<small>${TelaMessages.when(st.lastMessage.at)}</small>` : ""}</span>
+          <span class="convo-preview">${st.lastMessage ? `${st.lastMessage.from === "tutor" ? "You: " : ""}${esc(st.lastMessage.text)}` : "No messages yet"}</span></span>
+        ${st.unread ? `<span class="side-badge">${st.unread}</span>` : ""}
+      </button></li>`).join("")}</ul>`;
+  }
+  function bubblesHTML(list, st) {
+    if (!list.length) return `<p class="chat-empty">No messages with ${firstName(st)} yet. Say hello, or reply when they message you.</p>`;
+    return list.map(m => `<div class="bubble ${m.from === "tutor" ? "mine" : "theirs"}">
+      <div class="bubble-text">${esc(m.text)}</div><div class="bubble-time">${TelaMessages.when(m.at)}</div></div>`).join("");
+  }
+  function chatHTML(st) {
+    return `<div class="chat">
+      <div class="chat-head">
+        <button type="button" class="icon-btn" id="chatBack" aria-label="Back to all conversations">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <span class="avatar">${esc(st.name.charAt(0).toUpperCase())}</span>
+        <div><strong>${esc(st.name)}</strong><small>@${esc(st.username)}</small></div>
+        <button type="button" class="btn btn-ghost chat-hw" data-homework="${esc(st.username)}">Set homework</button>
+      </div>
+      <p class="chat-notice" role="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>All messages are recorded and can be viewed by admins.</p>
+      <div class="chat-list" id="chatList" aria-live="polite">${bubblesHTML(TelaMessages.thread(st.username, tutorUser), st)}</div>
+      <form class="composer" id="composer">
+        <textarea id="msgInput" rows="2" placeholder="Message ${firstName(st)}…" aria-label="Message ${esc(st.name)}"></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form></div>`;
+  }
+  function showConversations() {
+    chatStudent = null; chatGroup = null; groupEdit = null;
+    $("drawerTitle").textContent = "Messages";
+    $("drawerBody").classList.remove("chat-mode");
+    $("drawerBody").innerHTML = conversationsHTML();
+  }
+  function showChat(username) {
+    const st = students.find(s => s.username === username);
+    if (!st) return showConversations();
+    chatStudent = username; chatGroup = null; groupEdit = null;
+    $("drawerTitle").textContent = "Messages";
+    $("drawerBody").classList.add("chat-mode");
+    $("drawerBody").innerHTML = chatHTML(st);
+    refreshChat();
+    $("msgInput").focus();
+  }
+  // Shows the latest messages, marks the conversation read and updates the counts.
+  function refreshChat() {
+    const st = students.find(s => s.username === chatStudent);
+    if (!st || !$("chatList")) return;
+    $("chatList").innerHTML = bubblesHTML(TelaMessages.thread(st.username, tutorUser), st);
+    $("chatList").scrollTop = $("chatList").scrollHeight;
+    TelaMessages.markRead(st.username, tutorUser, "tutor");
+    refresh();
+  }
+  // ---------- Group chats ----------
+  // A tutor's group chats with some of their students (stored by messages.js). Everyone in the group sees
+  // every message; only the tutor who made the group can rename it, change who's in it or delete it.
+  function groupBubbles(list) {
+    if (!list.length) return `<p class="chat-empty">No messages in this group yet. Say hello to everyone.</p>`;
+    return list.map(m => {
+      const mine = m.role === "tutor" && m.from === tutorUser;
+      return `<div class="bubble ${mine ? "mine" : "theirs"}">${mine ? "" : `<div class="bubble-from">${esc(TelaMessages.senderName(m))}</div>`}
+        <div class="bubble-text">${esc(m.text)}</div><div class="bubble-time">${TelaMessages.when(m.at)}</div></div>`;
+    }).join("");
+  }
+  function showGroupChat(id) {
+    const g = TelaMessages.group(id);
+    if (!g || g.tutor !== tutorUser) return showConversations();
+    chatGroup = id; chatStudent = null; groupEdit = null;
+    const members = groupMembers(g);
+    $("drawerTitle").textContent = "Messages";
+    $("drawerBody").classList.add("chat-mode");
+    $("drawerBody").innerHTML = `<div class="chat">
+      <div class="chat-head">
+        <button type="button" class="icon-btn" id="chatBack" aria-label="Back to all conversations">${BACK_ICON}</button>
+        <span class="avatar group">${GROUP_ICON}</span>
+        <div><strong>${esc(g.name)}</strong><small>${members.length ? members.map(s => esc(s.name)).join(", ") : "No students in this group"}</small></div>
+        <button type="button" class="btn btn-ghost chat-hw" data-edit-group="${esc(g.id)}">Edit group</button>
+      </div>
+      <p class="chat-notice" role="note"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Everyone in the group sees these messages. All messages are recorded and can be viewed by admins.</p>
+      <div class="chat-list" id="chatList" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <textarea id="msgInput" rows="2" placeholder="Message ${esc(g.name)}…" aria-label="Message the group ${esc(g.name)}"></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form></div>`;
+    refreshGroupChat();
+    $("msgInput").focus();
+  }
+  function refreshGroupChat() {
+    if (!chatGroup || !$("chatList")) return;
+    if (!TelaMessages.group(chatGroup)) return showConversations();
+    $("chatList").innerHTML = groupBubbles(TelaMessages.groupThread(chatGroup));
+    $("chatList").scrollTop = $("chatList").scrollHeight;
+    TelaMessages.groupMarkRead(chatGroup, tutorUser, "tutor");
+    refresh();
+  }
+  // Making a new group (id "new") or editing one: its name and which of this tutor's students are in it.
+  function showGroupForm(id) {
+    const g = id === "new" ? null : TelaMessages.group(id);
+    if (id !== "new" && (!g || g.tutor !== tutorUser)) return showConversations();
+    groupEdit = id; chatGroup = null; chatStudent = null;
+    $("drawerTitle").textContent = g ? "Edit group" : "New group chat";
+    $("drawerBody").classList.remove("chat-mode");
+    const sorted = students.slice().sort((a, b) => a.name.localeCompare(b.name));
+    $("drawerBody").innerHTML = `<form class="group-form" id="groupForm" novalidate>
+      <div class="chat-head">
+        <button type="button" class="icon-btn" id="groupCancelBack" aria-label="${g ? "Back to the group" : "Back to all conversations"}">${BACK_ICON}</button>
+        <div><strong>${g ? esc(g.name) : "Make a group chat"}</strong><small>Everyone you add can read and send messages in the group.</small></div>
+      </div>
+      <div class="error" id="groupError" role="alert"></div>
+      <label class="field">Group name<input id="groupName" maxlength="40" autocomplete="off" placeholder="e.g. Tuesday maths group" value="${g ? esc(g.name) : ""}"></label>
+      <div class="field" role="group" aria-labelledby="membersLabel"><span id="membersLabel">Students</span>
+        <ul class="member-list">${sorted.map(st => `<li><label><input type="checkbox" name="member" value="${esc(st.username)}"${g && g.members.includes(st.username) ? " checked" : ""}>
+          <span>${esc(st.name)} <small>@${esc(st.username)}</small></span></label></li>`).join("")}</ul>
+        <small id="memberCount"></small></div>
+      <div class="group-actions">
+        ${g ? `<button type="button" class="btn btn-danger" id="groupDelete">Delete group</button>` : ""}
+        <button type="button" class="btn btn-ghost" id="groupCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary">${g ? "Save changes" : "Create group"}</button>
+      </div></form>`;
+    updateMemberCount();
+    $("groupName").focus();
+  }
+  function updateMemberCount() {
+    const n = document.querySelectorAll("#groupForm [name=member]:checked").length;
+    $("memberCount").textContent = n ? `${n} student${n === 1 ? "" : "s"} chosen.` : "Choose who's in the group.";
+  }
+  function saveGroupForm() {
+    const showErr = (msg, field) => { $("groupError").textContent = msg; $("groupError").classList.add("show"); if (field) { $(field).classList.add("invalid"); $(field).focus(); } };
+    const name = $("groupName").value.trim();
+    const members = [...document.querySelectorAll("#groupForm [name=member]:checked")].map(c => c.value);
+    if (!name) return showErr("Give the group a name.", "groupName");
+    if (myGroups().some(g => g.id !== groupEdit && g.name.toLowerCase() === name.toLowerCase())) return showErr(`You already have a group called "${name}".`, "groupName");
+    if (!members.length) return showErr("Choose at least one student for the group.");
+    let g;
+    if (groupEdit === "new") g = TelaMessages.createGroup(tutorUser, name, members);
+    else {
+      const old = TelaMessages.group(groupEdit);
+      g = old && TelaMessages.saveGroup({ ...old, name, members });
+    }
+    if (!g) return toast("Couldn't save the group. Please try again.");
+    toast(groupEdit === "new" ? `Made the group "${g.name}" with ${members.length} student${members.length === 1 ? "" : "s"}.` : `Saved "${g.name}".`);
+    showGroupChat(g.id);
+  }
+  function deleteGroup() {
+    const g = TelaMessages.group(groupEdit);
+    if (!g || !confirm(`Delete the group "${g.name}"? Its messages will be deleted for everyone. This can't be undone.`)) return;
+    if (!TelaMessages.deleteGroup(g.id)) return toast("Couldn't delete the group. Please try again.");
+    toast(`Deleted "${g.name}".`);
+    showConversations();
+    refresh();
+  }
+  // Cancel goes back to the group being edited, or to the list when making a new one.
+  const cancelGroupForm = () => groupEdit && groupEdit !== "new" ? showGroupChat(groupEdit) : showConversations();
+
+  function openMessages(username) {
+    adminChat = null; panelMode = "messages";
+    $("drawerOverlay").classList.add("open");
+    setActive("messages");
+    if (username) showChat(username); else { showConversations(); $("drawerClose").focus(); }
+  }
+  function closeMessages() {
+    chatStudent = null; chatGroup = null; groupEdit = null; adminChat = null; panelMode = "messages";
+    $("drawerOverlay").classList.remove("open");
+    $("drawerBody").classList.remove("chat-mode");
+    setActive("students");
+  }
+  function sendMessage() {
+    const text = $("msgInput").value;
+    if (!text.trim() || !(chatStudent || chatGroup)) return;
+    const sent = chatGroup ? TelaMessages.groupSend(chatGroup, tutorUser, "tutor", text) : TelaMessages.send(chatStudent, tutorUser, "tutor", text);
+    if (!sent) return toast("Couldn't send that message. Please try again.");
+    $("msgInput").value = "";
+    if (chatGroup) refreshGroupChat(); else refreshChat();
+    $("msgInput").focus();
+  }
+  const setActive = view => document.querySelectorAll(".side-btn").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+
+  // ---------- Admin: read-only view of every conversation ----------
+  // Admin tutors (by username) get an "All messages" item in the sidebar. They can read every conversation
+  // between any student and any tutor, but can't send in them, and reading doesn't mark
+  // anything as read for the student or tutor.
+  const ADMINS = ["dayan", "ilham"];
+  const isAdmin = ADMINS.includes(String(tutorUser).toLowerCase());
+  $("adminBtn").hidden = !isAdmin;
+  let panelMode = "messages", adminChat = null;   // adminChat: { student, tutor } when a conversation is open
+  function allConversations() {
+    const accounts = TelaDB.studentAccounts(), tutorAccounts = TelaDB.tutorAccounts();
+    return Object.keys(accounts).flatMap(student => TelaMessages.partners(student).map(tutor => {
+      const list = TelaMessages.thread(student, tutor);
+      return { student, tutor, studentName: TelaMessages.properName(accounts[student].displayName || student),
+        tutorName: TelaMessages.properName((tutorAccounts[tutor] || {}).displayName || tutor), count: list.length, last: list[list.length - 1] };
+    })).concat(Object.values(TelaMessages.allGroups()).map(g => {
+      // Group chats are listed with the tutor who made them; group stands in for the student.
+      const list = TelaMessages.groupThread(g.id);
+      return { group: g.id, student: g.name, tutor: g.tutor, studentName: g.name, tutorName: TelaMessages.properName((tutorAccounts[g.tutor] || {}).displayName || g.tutor),
+        members: g.members.map(m => TelaMessages.properName((accounts[m] || {}).displayName || m)), count: list.length, last: list[list.length - 1] };
+    }).filter(c => c.count)).sort((a, b) => b.last.at - a.last.at);
+  }
+  function adminListHTML() {
+    const all = allConversations();
+    const q = ($("adminSearch") ? $("adminSearch").value : "").trim().toLowerCase();
+    const shown = all.filter(c => !q || [c.studentName, c.tutorName, c.student, c.tutor, ...(c.members || [])].some(s => s.toLowerCase().includes(q)));
+    const rows = shown.length ? `<ul class="convo-list">${shown.map(c => c.group
+      ? `<li><button type="button" class="convo" data-admin-group="${esc(c.group)}">
+        <span class="avatar group">${GROUP_ICON}</span>
+        <span class="convo-main"><span class="convo-top"><strong>${esc(c.studentName)} · group of ${esc(c.tutorName)}</strong><small>${TelaMessages.when(c.last.at)}</small></span>
+          <span class="convo-preview">${esc(TelaMessages.senderName(c.last))}: ${esc(c.last.text)}</span></span>
+        <span class="msg-count">${c.count}</span></button></li>`
+      : `<li><button type="button" class="convo" data-admin-chat="${esc(c.student + "|" + c.tutor)}">
+        <span class="avatar">${esc(c.studentName.charAt(0).toUpperCase())}</span>
+        <span class="convo-main"><span class="convo-top"><strong>${esc(c.studentName)} ↔ ${esc(c.tutorName)}</strong><small>${TelaMessages.when(c.last.at)}</small></span>
+          <span class="convo-preview">${esc(c.last.from === "tutor" ? c.tutorName : c.studentName)}: ${esc(c.last.text)}</span></span>
+        <span class="msg-count">${c.count}</span></button></li>`).join("")}</ul>`
+      : `<p class="muted">${all.length ? "No conversations match your search." : "No one has sent any messages yet."}</p>`;
+    return rows;
+  }
+  function showAdminList() {
+    adminChat = null;
+    $("drawerTitle").textContent = "All messages";
+    $("drawerBody").classList.remove("chat-mode");
+    $("drawerBody").innerHTML = `<p class="admin-note">Admin view: every conversation between students and tutors. Read-only.</p>
+      <label class="search admin-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="adminSearch" placeholder="Search by student or tutor…" autocomplete="off" aria-label="Search conversations"></label>
+      <div id="adminRows">${adminListHTML()}</div>`;
+  }
+  function adminBubbles(c) {
+    return TelaMessages.thread(c.student, c.tutor).map(m => `<div class="bubble ${m.from === "tutor" ? "mine" : "theirs"}">
+      <div class="bubble-from">${esc(m.from === "tutor" ? c.tutorName : c.studentName)}</div>
+      <div class="bubble-text">${esc(m.text)}</div><div class="bubble-time">${TelaMessages.when(m.at)}</div></div>`).join("");
+  }
+  function showAdminGroup(id) {
+    const c = allConversations().find(x => x.group === id);
+    if (!c) return showAdminList();
+    adminChat = { group: id };
+    $("drawerTitle").textContent = "All messages";
+    $("drawerBody").classList.add("chat-mode");
+    $("drawerBody").innerHTML = `<div class="chat">
+      <div class="chat-head">
+        <button type="button" class="icon-btn" id="adminBack" aria-label="Back to all conversations">${BACK_ICON}</button>
+        <div><strong>${esc(c.studentName)}</strong><small>Group of @${esc(c.tutor)} · ${c.members.length ? esc(c.members.join(", ")) : "no students"} · ${c.count} message${c.count === 1 ? "" : "s"}</small></div>
+      </div>
+      <p class="admin-note">Read-only admin view of a group chat. ${esc(c.tutorName)}'s messages are on the right.</p>
+      <div class="chat-list" id="chatList">${TelaMessages.groupThread(id).map(m => `<div class="bubble ${m.role === "tutor" && m.from === c.tutor ? "mine" : "theirs"}">
+        <div class="bubble-from">${esc(TelaMessages.senderName(m))}</div>
+        <div class="bubble-text">${esc(m.text)}</div><div class="bubble-time">${TelaMessages.when(m.at)}</div></div>`).join("")}</div></div>`;
+    $("chatList").scrollTop = $("chatList").scrollHeight;
+  }
+  function showAdminChat(student, tutor) {
+    const c = allConversations().find(x => !x.group && x.student === student && x.tutor === tutor);
+    if (!c) return showAdminList();
+    adminChat = { student, tutor };
+    $("drawerTitle").textContent = "All messages";
+    $("drawerBody").classList.add("chat-mode");
+    $("drawerBody").innerHTML = `<div class="chat">
+      <div class="chat-head">
+        <button type="button" class="icon-btn" id="adminBack" aria-label="Back to all conversations">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div><strong>${esc(c.studentName)} ↔ ${esc(c.tutorName)}</strong><small>@${esc(c.student)} and @${esc(c.tutor)} · ${c.count} message${c.count === 1 ? "" : "s"}</small></div>
+      </div>
+      <p class="admin-note">Read-only admin view. ${esc(c.tutorName)}'s messages are on the right.</p>
+      <div class="chat-list" id="chatList">${adminBubbles(c)}</div></div>`;
+    $("chatList").scrollTop = $("chatList").scrollHeight;
+  }
+  function openAdmin() {
+    chatStudent = null; chatGroup = null; groupEdit = null; panelMode = "admin";
+    $("drawerOverlay").classList.add("open");
+    setActive("admin");
+    showAdminList();
+    $("adminSearch").focus();
+  }
+  function refreshAdmin() {
+    if (adminChat && adminChat.group) showAdminGroup(adminChat.group);
+    else if (adminChat) showAdminChat(adminChat.student, adminChat.tutor);
+    else if ($("adminRows")) $("adminRows").innerHTML = adminListHTML();
+  }
+
+  document.querySelectorAll(".side-btn").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.view === "messages") { if (messagesOpen() && panelMode === "messages") closeMessages(); else openMessages(); }
+    else if (b.dataset.view === "admin" && isAdmin) { if (messagesOpen() && panelMode === "admin") closeMessages(); else openAdmin(); }
+    else if (b.dataset.view === "accounts" && isAdmin) { if (messagesOpen() && panelMode === "accounts") closeMessages(); else openAccounts(); }
+    else { closeMessages(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  }));
+  $("drawerBody").addEventListener("input", e => {
+    if (e.target.id === "adminSearch") $("adminRows").innerHTML = adminListHTML();
+    if (e.target.id === "groupName") e.target.classList.remove("invalid");
+    if (e.target.name === "member") { updateMemberCount(); $("groupError").classList.remove("show"); }
+  });
+  $("drawerClose").addEventListener("click", closeMessages);
+  $("drawerOverlay").addEventListener("click", e => {
+    if (e.target === $("drawerOverlay")) return closeMessages();
+    if (e.target.closest("#adminBack")) return showAdminList();
+    const adminOpen = e.target.closest("[data-admin-chat]");
+    if (adminOpen) { const [student, tutor] = adminOpen.dataset.adminChat.split("|"); return showAdminChat(student, tutor); }
+    const adminGroup = e.target.closest("[data-admin-group]");
+    if (adminGroup) return showAdminGroup(adminGroup.dataset.adminGroup);
+    if (e.target.closest("#chatBack")) return showConversations();
+    if (e.target.closest("#newGroup")) return showGroupForm("new");
+    const openGroup = e.target.closest("[data-group]");
+    if (openGroup) return showGroupChat(openGroup.dataset.group);
+    const editGroup = e.target.closest("[data-edit-group]");
+    if (editGroup) return showGroupForm(editGroup.dataset.editGroup);
+    if (e.target.closest("#groupCancel, #groupCancelBack")) return cancelGroupForm();
+    if (e.target.closest("#groupDelete")) return deleteGroup();
+    const chat = e.target.closest("[data-chat]");
+    if (chat) return showChat(chat.dataset.chat);
+    const setHw = e.target.closest("[data-homework]");
+    if (setHw) { closeMessages(); openHomework(setHw.dataset.homework); }
+  });
+  $("drawerBody").addEventListener("submit", e => {
+    if (e.target.id === "composer") { e.preventDefault(); sendMessage(); }
+    if (e.target.id === "groupForm") { e.preventDefault(); saveGroupForm(); }
+  });
+  // Enter sends; Shift+Enter starts a new line.
+  $("drawerBody").addEventListener("keydown", e => {
+    if (e.target.id === "msgInput" && e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+  $("grid").addEventListener("click", e => { const chat = e.target.closest("[data-chat]"); if (chat) openMessages(chat.dataset.chat); });
+  // Messages, progress and homework changed by someone else arrive without a reload (live updates in db.js).
+  TelaDB.onError(toast);
+  TelaDB.onChange(() => {
+    if (panelMode === "accounts" && messagesOpen()) { refresh(); refreshAccounts(); }
+    else if (panelMode === "admin" && messagesOpen()) { refresh(); refreshAdmin(); }
+    else if (chatStudent && messagesOpen()) refreshChat();
+    else if (chatGroup && messagesOpen()) refreshGroupChat(); else refresh();
+  });
+
+  // Collapse or expand the sidebar; the choice is remembered in this browser.
+  function setSidebarCollapsed(collapsed) {
+    document.documentElement.classList.toggle("side-collapsed", collapsed);
+    const label = collapsed ? "Expand sidebar" : "Collapse sidebar";
+    $("sideToggle").setAttribute("aria-label", label);
+    $("sideToggle").title = label;
+    $("sideToggle").setAttribute("aria-expanded", String(!collapsed));
+    document.querySelectorAll(".side-btn").forEach(b => { b.title = collapsed ? b.querySelector("span").textContent.trim() : ""; });
+  }
+  try { setSidebarCollapsed(localStorage.getItem("tela.tutorSidebarCollapsed") === "1"); } catch (e) { setSidebarCollapsed(false); }
+  requestAnimationFrame(() => document.documentElement.classList.add("side-ready"));
+  $("sideToggle").addEventListener("click", () => {
+    const collapsed = !document.documentElement.classList.contains("side-collapsed");
+    setSidebarCollapsed(collapsed);
+    try { localStorage.setItem("tela.tutorSidebarCollapsed", collapsed ? "1" : "0"); } catch (e) {}
+  });
+
+  // ---------- Toasts and usernames ----------
+  const USERNAME_RE = /^[a-z0-9._-]{3,20}$/;
+  let toastTimer;
+  function toast(msg) {
+    $("toast").textContent = msg;
+    $("toast").classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => $("toast").classList.remove("show"), 4000);
+  }
+  $("grid").addEventListener("click", e => {
+    const more = e.target.closest("[data-time]");
+    if (more) {
+      const u = more.dataset.time, open = !timeOpen.has(u), extra = more.previousElementSibling;
+      if (open) timeOpen.add(u); else timeOpen.delete(u);
+      // Changed in place (not redrawn), so the month and year slide open and closed
+      extra.classList.toggle("open", open);
+      extra.setAttribute("aria-hidden", String(!open));
+      more.setAttribute("aria-expanded", String(open));
+      more.querySelector("span").textContent = open ? "Hide month and year" : "Show month and year";
+      return;
+    }
+    const setHw = e.target.closest("[data-homework]");
+    if (setHw) openHomework(setHw.dataset.homework);
+  });
+
+  // ---------- Homework ----------
+  // Each student's homework (saved in Supabase, see db.js), as [{ id, title, subject, grade, setBy, setByName, setAt, due, note, questions }].
+  // An item counts as complete once the student has that topic at Confident.
+  const STATUS_LABEL = { todo: "Not started", doing: "In progress", done: "Complete" };
+  const shortDate = ms => new Date(ms).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+
+  // Today's date on this computer's clock, written like a due date ("2026-10-25").
+  function localToday() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
+  // Unfinished homework past its due date is shown in red as Overdue.
+  function homeworkRows(st, editable) {
+    if (!Array.isArray(st.homework) || !st.homework.length) return `<p class="muted">No homework set.</p>`;
+    return `<ul class="hw-rows">${st.homework.map(hw => {
+      const status = st.statusOf(hw.title), late = !!hw.due && hw.due < localToday() && status !== "done";
+      return `<li${late ? ` class="overdue"` : ""}><span>${esc(hw.title)}${hw.questions ? ` <small>· ${hw.questions} Q</small>` : ""}</span>
+        <small>${hw.due ? (late ? "Was due " : "Due ") + shortDate(hw.due + "T12:00") : "Set " + shortDate(hw.setAt)}</small>
+        <span class="pill ${late ? "overdue" : status}">${late ? "Overdue" : STATUS_LABEL[status]}</span>
+        ${editable && (!hw.setBy || hw.setBy === tutorUser) ? `<button type="button" class="hw-remove" data-unset="${esc(hw.id)}" aria-label="Cancel ${esc(hw.title)}">Cancel</button>` : editable && hw.setByName ? `<small>by ${esc(hw.setByName)}</small>` : ""}</li>`;
+    }).join("")}</ul>`;
+  }
+
+  // The topic picker lists every topic: sciences by subject (unless hidden), then Maths grade by grade.
+  (function fillTopicPicker() {
+    let html = `<option value="">Choose a topic…</option>`;
+    ["Physics", "Chemistry", "Biology"].filter(isShownSubject).forEach(subject => {
+      html += `<optgroup label="${subject}">${SAMPLE_TOPICS[subject].map(r => `<option value="${esc(subject + "|" + r[0])}">${esc(r[0])}</option>`).join("")}</optgroup>`;
+    });
+    GRADES.forEach(grade => {
+      html += `<optgroup label="Maths · ${grade}">${MATHS_BY_GRADE[grade].map(e => `<option value="${esc("Maths|" + e.slice(2))}">${esc(e.slice(2))}</option>`).join("")}</optgroup>`;
+    });
+    $("hwTopic").innerHTML = html;
+  })();
+
+  // How many questions a topic has (its bank) and how many make its usual set.
+  function questionInfo(title) {
+    const blocks = QUESTION_BANK.topics[String(title).trim().toLowerCase()] || [];
+    const total = blocks.reduce((n, b) => n + (Array.isArray(b.questions) ? b.questions.length : 0), 0);
+    const per = blocks[0] && Number(blocks[0].questionsPerSet) > 0 ? Math.floor(blocks[0].questionsPerSet) : total;
+    return { total, usual: Math.min(per, total) };
+  }
+  function updateCountField() {
+    const title = $("hwTopic").value.split("|")[1];
+    const info = title ? questionInfo(title) : null;
+    $("hwCount").disabled = !info || !info.total;
+    if (!info || !info.total) {
+      $("hwCount").value = "";
+      $("hwCountHint").textContent = title ? "This topic has no questions yet." : "Choose a topic first.";
+      return;
+    }
+    $("hwCount").max = info.total;
+    $("hwCount").value = info.usual;
+    $("hwCountHint").textContent = `Between 1 and ${info.total} (the usual set is ${info.usual}).`;
+  }
+
+  let hwStudent = null;
+  function openHomework(username) {
+    hwStudent = students.find(s => s.username === username);
+    if (!hwStudent) return;
+    $("hwForm").reset();
+    updateCountField();
+    $("hwError").classList.remove("show");
+    document.querySelectorAll("#hwForm .invalid").forEach(el => el.classList.remove("invalid"));
+    $("hwTitle").textContent = `Set homework for ${hwStudent.name}`;
+    $("hwLead").textContent = `Choose a topic. It will appear in the Homework section of ${hwStudent.name}'s dashboard.`;
+    $("hwDue").min = new Date().toISOString().slice(0, 10);
+    renderCurrentHomework();
+    $("hwOverlay").classList.add("open");
+    $("hwTopic").focus();
+  }
+  function renderCurrentHomework() {
+    $("hwCurrent").innerHTML = `<h3>Current homework</h3>${homeworkRows(hwStudent, true)}`;
+  }
+  const closeHomework = () => $("hwOverlay").classList.remove("open");
+  // Homework is saved to Supabase (db.js); afterwards the students and this form are redrawn.
+  function afterHomeworkChange() {
+    refresh();
+    hwStudent = students.find(s => s.username === hwStudent.username);
+  }
+
+  $("hwCancel").addEventListener("click", closeHomework);
+  $("hwOverlay").addEventListener("click", e => {
+    if (e.target === $("hwOverlay")) return closeHomework();
+    const unset = e.target.closest("[data-unset]");
+    if (!unset) return;
+    const hw = hwStudent.homework.find(h => h.id === unset.dataset.unset);
+    if (!hw || !confirm(`Cancel the homework "${hw.title}" for ${hwStudent.name}?`)) return;
+    TelaDB.removeHomework(hw.id);
+    afterHomeworkChange();
+    renderCurrentHomework();
+    toast(`Cancelled "${hw.title}".`);
+  });
+  $("hwTopic").addEventListener("change", () => { $("hwTopic").classList.remove("invalid"); $("hwError").classList.remove("show"); updateCountField(); });
+  $("hwCount").addEventListener("input", () => $("hwCount").classList.remove("invalid"));
+
+  $("hwForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const [subject, title] = $("hwTopic").value.split("|");
+    const showErr = (msg, field = "hwTopic") => { $("hwError").textContent = msg; $("hwError").classList.add("show"); $(field).classList.add("invalid"); $(field).focus(); };
+    if (!title) return showErr("Choose a topic to set.");
+    const info = questionInfo(title), count = Number($("hwCount").value);
+    if (info.total && (!Number.isInteger(count) || count < 1 || count > info.total)) return showErr(`Choose between 1 and ${info.total} questions.`, "hwCount");
+    const list = Array.isArray(hwStudent.homework) ? hwStudent.homework : [];
+    if (list.some(h => h.title === title && hwStudent.statusOf(h.title) !== "done")) return showErr(`${hwStudent.name} already has "${title}" as homework.`);
+    const grade = subject === "Maths" ? GRADES.find(g => MATHS_BY_GRADE[g].some(e => e.slice(2) === title)) : "";
+    const item = {
+      id: "hw" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), title, subject, grade,
+      setBy: tutorUser, setByName: tutor.displayName || tutorUser, setAt: Date.now(),
+      due: $("hwDue").value || "", note: $("hwNote").value.trim(), questions: info.total ? count : 0
+    };
+    // Setting a topic again replaces the earlier (finished) homework for it.
+    list.filter(h => h.title === title).forEach(h => TelaDB.removeHomework(h.id));
+    TelaDB.addHomework(hwStudent.username, item);
+    afterHomeworkChange();
+    $("hwForm").reset();
+    updateCountField();
+    $("hwError").classList.remove("show");
+    document.querySelectorAll("#hwForm .invalid").forEach(el => el.classList.remove("invalid"));
+    renderCurrentHomework();
+    toast(`Set "${title}" (${item.questions} question${item.questions === 1 ? "" : "s"}) for ${hwStudent.name}.`);
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (["hwOverlay", "accOverlay"].some(id => $(id).classList.contains("open"))) { closeHomework(); closeAccountForm(); }
+    else if (messagesOpen()) closeMessages();
+  });
+  document.querySelectorAll("#accForm input").forEach(el => el.addEventListener("input", () => el.classList.remove("invalid")));
+
+  // While the server is answering, a form's button can't be pressed again.
+  function busy(btn, on, label) {
+    btn.disabled = on;
+    if (on) { btn.dataset.label = btn.textContent; btn.textContent = label; }
+    else if (btn.dataset.label) btn.textContent = btn.dataset.label;
+  }
+
+  // ---------- Admin: accounts ----------
+  // Only admins make accounts, for students and tutors, change them (name, username, password and a student's tutors),
+  // and delete them (with everything
+  // saved for the account). The panel lists every account; the New account form makes one.
+  $("accountsBtn").hidden = !isAdmin;
+  function accountsHTML() {
+    const q = ($("accSearch") ? $("accSearch").value : "").trim().toLowerCase();
+    const tutorsMap = TelaDB.tutorAccounts(), studentsMap = TelaDB.studentAccounts();
+    const match = (u, a) => !q || u.includes(q) || String(a.displayName).toLowerCase().includes(q);
+    const byName = ([, a], [, b]) => String(a.displayName).localeCompare(String(b.displayName));
+    const tutorList = Object.entries(tutorsMap).filter(([u, a]) => match(u, a)).sort(byName);
+    const studentList = Object.entries(studentsMap).filter(([u, a]) => match(u, a)).sort(byName);
+    const nameOf = u => TelaMessages.properName((tutorsMap[u] || {}).displayName || u);
+    const row = (role, u, a, detail) => `<li class="acc-row">
+        <span class="avatar${role === "tutor" ? " tutor" : ""}">${esc(String(a.displayName || u).charAt(0).toUpperCase())}</span>
+        <span class="convo-main"><strong>${esc(TelaMessages.properName(a.displayName || u))}</strong><small>@${esc(u)} · ${detail}</small></span>
+        <button type="button" class="edit-btn" data-edit-account="${esc(role + "|" + u)}" aria-label="Edit ${esc(a.displayName || u)}'s account">Edit</button>
+        ${role === "tutor" && u === tutorUser ? `<span class="you">You</span>`
+          : `<button type="button" class="remove-btn" data-delete-account="${esc(role + "|" + u)}" aria-label="Delete ${esc(a.displayName || u)}'s account">Delete</button>`}</li>`;
+    const taught = u => Object.values(studentsMap).filter(s => s.tutors.includes(u)).length;
+    return `<div class="convo-head"><h3>Tutors (${tutorList.length})</h3></div>
+      ${tutorList.length ? `<ul class="convo-list">${tutorList.map(([u, a]) => row("tutor", u, a, `${taught(u)} student${taught(u) === 1 ? "" : "s"}`)).join("")}</ul>` : `<p class="muted">No tutors match.</p>`}
+      <div class="convo-head"><h3>Students (${studentList.length})</h3></div>
+      ${studentList.length ? `<ul class="convo-list">${studentList.map(([u, a]) => row("student", u, a, a.tutors.length ? esc(a.tutors.map(nameOf).join(", ")) : "no tutor")).join("")}</ul>` : `<p class="muted">No students match.</p>`}`;
+  }
+  function showAccounts() {
+    $("drawerTitle").textContent = "Accounts";
+    $("drawerBody").classList.remove("chat-mode");
+    $("drawerBody").innerHTML = `<p class="admin-note">Only admins can make, change or delete student and tutor accounts, and decide which students each tutor teaches.</p>
+      <div class="acc-new">
+        <button type="button" class="btn btn-primary" data-new-account="student">+ New student</button>
+        <button type="button" class="btn btn-ghost" data-new-account="tutor">+ New tutor</button>
+      </div>
+      <label class="search admin-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="accSearch" placeholder="Search by name or username…" autocomplete="off" aria-label="Search accounts"></label>
+      <div id="accRows">${accountsHTML()}</div>`;
+  }
+  function openAccounts() {
+    chatStudent = null; chatGroup = null; groupEdit = null; adminChat = null; panelMode = "accounts";
+    $("drawerOverlay").classList.add("open");
+    setActive("accounts");
+    showAccounts();
+    $("accSearch").focus();
+  }
+  const refreshAccounts = () => { if ($("accRows")) $("accRows").innerHTML = accountsHTML(); };
+  $("drawerBody").addEventListener("input", e => { if (e.target.id === "accSearch") refreshAccounts(); });
+  $("drawerBody").addEventListener("click", async e => {
+    const make = e.target.closest("[data-new-account]");
+    if (make) return openAccountForm(make.dataset.newAccount);
+    const edit = e.target.closest("[data-edit-account]");
+    if (edit) { const [role, username] = edit.dataset.editAccount.split("|"); return openAccountForm(role, username); }
+    const del = e.target.closest("[data-delete-account]");
+    if (!del) return;
+    const [role, username] = del.dataset.deleteAccount.split("|");
+    const acc = (role === "tutor" ? TelaDB.tutorAccounts() : TelaDB.studentAccounts())[username] || {};
+    const name = TelaMessages.properName(acc.displayName || username);
+    const what = role === "tutor" ? "their messages and group chats" : "their progress, saved answers, homework and messages";
+    if (!confirm(`Delete ${name}'s ${role} account (@${username})? This deletes ${what} for good. This can't be undone.`)) return;
+    del.disabled = true;
+    try { await TelaDB.deleteAccount(role, username); }
+    catch (err) { del.disabled = false; return toast("Couldn't delete the account. Check your connection and try again."); }
+    refresh();
+    refreshAccounts();
+    toast(`Deleted ${name}'s account.`);
+  });
+
+  // The account form: a new student (optionally put with some tutors) or tutor, or changes to an existing account.
+  let accRole = "student", accEdit = null;   // accEdit: the username being changed, or null for a new account
+  function setAccRole(role) {
+    accRole = role;
+    document.querySelectorAll("[data-accrole]").forEach(t => t.classList.toggle("active", t.dataset.accrole === role));
+    $("accTitle").textContent = role === "tutor" ? "New tutor account" : "New student account";
+    $("accLead").textContent = role === "tutor" ? "Make the account, then give the tutor their username and password. They sign in with Tutor sign in."
+      : "Make the account, then give the student their username and password. They start with an empty dashboard.";
+    $("accTutorsField").hidden = role !== "student";
+    $("accError").classList.remove("show");
+    document.querySelectorAll("#accForm .invalid").forEach(el => el.classList.remove("invalid"));
+  }
+  document.querySelectorAll("[data-accrole]").forEach(t => t.addEventListener("click", () => { setAccRole(t.dataset.accrole); $("accName").focus(); }));
+  function setPwShown(btn, show) {
+    $(btn.dataset.for).type = show ? "text" : "password";
+    btn.textContent = show ? "Hide" : "Show";
+  }
+  document.querySelectorAll(".toggle-pw").forEach(btn => btn.addEventListener("click", e => {
+    e.preventDefault();
+    setPwShown(btn, $(btn.dataset.for).type === "password");
+  }));
+  function openAccountForm(role, editing = null) {
+    accEdit = editing;
+    $("accForm").reset();
+    document.querySelectorAll(".toggle-pw").forEach(btn => setPwShown(btn, false));
+    const tutorsMap = TelaDB.tutorAccounts();
+    $("accTutors").innerHTML = Object.entries(tutorsMap).sort(([, a], [, b]) => String(a.displayName).localeCompare(String(b.displayName)))
+      .map(([u, a]) => `<li><label><input type="checkbox" name="accTutor" value="${esc(u)}"><span>${esc(TelaMessages.properName(a.displayName || u))} <small>@${esc(u)}</small></span></label></li>`).join("");
+    setAccRole(role);
+    if (editing) {
+      const acc = (role === "tutor" ? TelaDB.tutorAccounts() : TelaDB.studentAccounts())[editing] || {};
+      $("accTitle").textContent = role === "tutor" ? "Edit tutor account" : "Edit student account";
+      $("accLead").textContent = "Change their name or username, or give them a new password. A new password signs them out everywhere.";
+      $("accName").value = acc.displayName || "";
+      $("accUser").value = editing;
+      document.querySelectorAll("[name=accTutor]").forEach(box => { box.checked = (acc.tutors || []).includes(box.value); });
+    }
+    $("accTabs").hidden = !!editing;
+    $("accPassHint").textContent = editing ? "Leave blank to keep their password. A new one needs at least 8 characters." : "At least 8 characters.";
+    $("accSubmit").textContent = editing ? "Save changes" : "Create account";
+    $("accOverlay").classList.add("open");
+    $("accName").focus();
+  }
+  function closeAccountForm() { $("accOverlay").classList.remove("open"); }
+  function accError(msg, field) {
+    $("accError").textContent = msg;
+    $("accError").classList.add("show");
+    document.querySelectorAll("#accForm .invalid").forEach(el => el.classList.remove("invalid"));
+    if (field) { $(field).classList.add("invalid"); $(field).focus(); }
+  }
+  $("accCancel").addEventListener("click", closeAccountForm);
+  $("accOverlay").addEventListener("click", e => { if (e.target === $("accOverlay")) closeAccountForm(); });
+  $("accForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const name = $("accName").value.trim();
+    const username = $("accUser").value.trim().toLowerCase();
+    const password = $("accPass").value;
+    if (!name) return accError("Enter their name.", "accName");
+    if (!USERNAME_RE.test(username)) return accError("Usernames must be 3–20 characters: letters, numbers, dots, dashes or underscores.", "accUser");
+    if (password.length < 8 && (password || !accEdit)) return accError("The password needs at least 8 characters.", "accPass");
+    if (password !== $("accConfirm").value) return accError("Those passwords don't match.", "accConfirm");
+    const tutors = accRole === "student" ? [...document.querySelectorAll("[name=accTutor]:checked")].map(c => c.value) : [];
+    if (accEdit) return saveAccountChanges(name, username, password, tutors);
+    busy($("accSubmit"), true, "Creating…");
+    let problem;
+    try { problem = await TelaDB.createAccount(accRole, username, name, password, tutors); }
+    catch (err) { problem = "Couldn't reach the server. Check your connection and try again."; }
+    busy($("accSubmit"), false);
+    if (problem === "taken") return accError(`There's already a ${accRole} with the username "${username}".`, "accUser");
+    if (problem) return accError(problem);
+    closeAccountForm();
+    refresh();
+    refreshAccounts();
+    toast(`Made ${accRole === "tutor" ? "a tutor" : "a student"} account for ${TelaMessages.properName(name)}. They sign in as "${username}" with the password you chose.`);
+  });
+
+  async function saveAccountChanges(name, username, password, tutors) {
+    busy($("accSubmit"), true, "Saving…");
+    let problem;
+    try {
+      problem = await TelaDB.updateAccount(accRole, accEdit, { newUsername: username, name, password });
+      if (!problem && accRole === "student") problem = await TelaDB.setTutors(username, tutors);
+    } catch (err) { problem = "Couldn't reach the server. Check your connection and try again."; }
+    busy($("accSubmit"), false);
+    if (problem === "taken") return accError(`There's already a ${accRole} with the username "${username}".`, "accUser");
+    if (problem) return accError(problem);
+    closeAccountForm();
+    refresh();
+    refreshAccounts();
+    toast(`Saved the changes to ${TelaMessages.properName(name)}'s account.` + (password ? " Give them their new password: they've been signed out." : ""));
+  }
+
+  $("logoutBtn").addEventListener("click", async () => {
+    await TelaDB.signOut();
+    location.href = "login.html#tutor";
+  });
+  // Draw the students once everything above is defined.
+  refresh();
+
+  // Coming back with Forward after signing out re-checks the sign-in.
+  window.addEventListener("pageshow", e => { if (e.persisted) location.reload(); });
+});
+</script>
+</body>
+</html>
